@@ -1,0 +1,12 @@
+<?php
+$s_reminder_plugin_title 		= "Mantis Send Reminder E-Mail" ;
+$s_reminder_config 				= "Configuration" ;
+$s_reminder_bug_status			= "Only select issues with status" ;
+$s_reminder_mail_subject		= "Body of the Reminder message" ;
+$s_reminder_sender				= "E-mail address of sender" ;
+$s_reminder_days_treshold		= "Number of days before due date";
+$s_reminder_update_config		= 'Update definition';
+$s_reminder_store_as_note		= "Store reminder as note";
+$s_reminder_store_enabled 		= "On";
+$s_reminder_store_disabled 		= "Off";
+$s_reminder_ignore_unset		= "Ignore issues with Due date not set"; 
