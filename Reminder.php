@@ -3,7 +3,7 @@ class ReminderPlugin extends MantisPlugin {
 	function register() {
 		$this->name        = 'Reminder';
 		$this->description = 'Sends E-mail to warn for Coming Due Dates';
-		$this->version     = '1.00';
+		$this->version     = '1.03';
 		$this->requires    = array('MantisCore'       => '1.2.0',);
 		$this->author      = 'Cas Nuy';
 		$this->contact     = 'Cas-at-nuy.info';
@@ -20,6 +20,7 @@ class ReminderPlugin extends MantisPlugin {
 			'reminder_sender'				=> 'Admin@nuy.info',
 			'reminder_bug_status'			=> ASSIGNED,
 			'reminder_ignore_unset'			=> ON,
+			'reminder_ignore_past'			=> ON,
 			'reminder_handler'				=> ON,
 			'reminder_group_issues'			=> ON,
 			'reminder_group_project'		=> OFF,
@@ -28,7 +29,18 @@ class ReminderPlugin extends MantisPlugin {
 			'reminder_group_body1'			=> "Please review the following issues",
 			'reminder_group_body2'			=> "Please do not reply to this message",
 			'reminder_project_id'			=> 0,
+			'reminder_feedback_project'		=> 0,
+			'reminder_feedback_status'		=>20,
 			);
 	}
-}
+	
+	function init() { 
+		plugin_event_hook( 'EVENT_MENU_MANAGE', 'remdown' );
+	}
 
+	
+	function remdown() {
+		return array('<a href="'. plugin_page( 'bug_due_overview.php' ) . '">' . lang_get( 'reminder_download' ) . '</a>' );
+    }
+
+}

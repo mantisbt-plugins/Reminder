@@ -24,7 +24,7 @@ reminder_groupbody1	= "Please review the following issues";
 reminder_groupbody2	= "Please do not reply to this message";
 
 // perform for which project 
-reminder_project_id = 0;
+reminder_project_id = 0; means ALL
 
 // how many days before Due date should we take into account
 reminder_days_treshold  = 2;
@@ -38,6 +38,10 @@ reminder_bug_status = ASSIGNED
 
 // Ignore reminders for issues with no Due date set
 reminder_ignore_unset = ON
+
+// Ignore reminders for issues with Due dates in the past
+reminder_ign_past = ON
+// only valid for the mail function, downloads will always have duedates that have gone by
 
 // Create overview per handler
 reminder_handler = ON
@@ -55,6 +59,12 @@ reminder_manager_overview = ON
 // this needs to be made flexible
 // we will only produce overview for those projects that have a separate manager
 //
+
+// Select project to receive Feedback mail
+reminder_feedback_project = 0; means ALL
+
+// For which status to send feedbackreminders
+reminder_bug_status = FEEDBACK
 ********************************************************************************************
 Automatically generating mail                                                              *
 ********************************************************************************************
@@ -73,20 +83,26 @@ g:
 cd \inetpub\wwwroot\mantis
 php.exe plugin.php?page=Reminder/bug_reminder_mail.php
 
+
+One can also schedule a job to prompt reporters to respond because their issue has status Feedback.
+In that case replace bug_reminder_mail.php with bug_feedback_mail.php
 ********************************************************************************************
 Extras                                                                                     *
 ********************************************************************************************
 On top of that, i have created a little variant which will create a spreadsheet with issues getting due.
 Call script like:
-http://www.YourMantisHome.com/bug_due_overview.php?days=2&status=50
+http://www.YourMantisHome.com/bug_due_overview2.php?days=2&status=50
 If you do not apply parameters, the script will default to the above.
 
 ********************************************************************************************
 License                                                                                    *
 ********************************************************************************************
-This addon is distributed under the same conditions as Mantis itself.
+This plugin is distributed under the same conditions as Mantis itself.
 
 ********************************************************************************************
 Greetings                                                                                  *
 ********************************************************************************************
 Cas Nuy February 2009
+
+Version 1.02
+bugfixes 	March 2010

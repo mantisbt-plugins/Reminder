@@ -135,6 +135,21 @@ print_manage_menu();
 			<?php echo lang_get( 'reminder_store_disabled' ) ?></label>
 	</td>
 </tr>
+
+<tr <?php echo helper_alternate_class() ?>>
+	<td class="category">
+		<?php echo lang_get( 'reminder_ignore_past' ) ?>
+	</td>
+	<td class="right">
+		<label><input type="radio" name="reminder_ignore_past" value="1" <?php echo ( ON == plugin_config_get( 'reminder_ignore_past' ) ) ? 'checked="checked" ' : ''?>/>
+			<?php echo lang_get( 'reminder_store_enabled' ) ?></label>
+	</td>
+	<td class="center">
+		<label><input type="radio" name="reminder_ignore_past" value="0" <?php echo ( OFF == plugin_config_get( 'reminder_ignore_past' ) ) ? 'checked="checked" ' : ''?>/>
+			<?php echo lang_get( 'reminder_store_disabled' ) ?></label>
+	</td>
+</tr>
+
 <tr <?php echo helper_alternate_class() ?>>
 	<td class="category">
 		<?php echo lang_get( 'reminder_store_as_note' ) ?>
@@ -176,6 +191,32 @@ print_manage_menu();
 		<textarea NAME="reminder_group_body2" rows=3 cols=50 ><?php echo plugin_config_get( 'reminder_group_body2' )?></textarea>
 	</td><td></td>
 </tr>
+
+
+<tr <?php echo helper_alternate_class() ?> >
+	<td class="category" width="60%">
+		<?php echo lang_get( 'reminder_feedback_project_name' ) ?>
+	</td>
+	<td width="20%">
+		<select name="reminder_feedback_project">
+			<option value="0" selected="selected"><?php echo lang_get( 'all_projects' ); ?></option>
+			<?php print_project_option_list( ALL_PROJECTS, false ) ?>
+		</select>
+	</td>
+		</td><td>
+</tr>
+
+<tr <?php echo helper_alternate_class() ?>>
+	<td class="category" width="60%">
+		<?php echo lang_get( 'reminder_feedback_status' ) ?>
+	</td>
+	<td width="20%">
+	<?php print_status_option_list( 'reminder_feedback_status',plugin_config_get( 'reminder_feedback_status' ) ) ?>
+	</td><td>
+	</td> 
+	</td>
+</tr>
+
 
 <tr>
 	<td class="center" colspan="3">
