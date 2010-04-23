@@ -34,7 +34,7 @@ $t_rem_body2	= plugin_config_get( 'reminder_group_body2' );
 $baseline	= time(true)+ ($t_rem_days*24*60*60);
 $basenow	= time(true);
 if ( ON == $t_rem_handler ) {
-	$query = "select id,handler_id,project_id from $t_bug_table where status=$t_rem_status and due_date<=$baseline ";
+	$query = "select id,handler_id,project_id from $t_bug_table where status=$t_rem_status and due_date<=$baseline and handler_id<>0 ";
 	if ( ON == $t_rem_ignore ) {
 		$query .=" and due_date>1" ;
 	}
