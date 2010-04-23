@@ -67,7 +67,7 @@ if ( ON == $t_rem_handler ) {
 	} else {
 		if ($results){
 			$start = true ;
-			$list= "'";
+			$list= "";
 			// first group and store reminder per issue
 			while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
 				$id 		= $row1[0];
@@ -78,8 +78,8 @@ if ( ON == $t_rem_handler ) {
 					$start = false ;
 				}
 				if ($handler=$handler2){
+					$list .=" \n\n"; 
 					$list .= string_get_bug_view_url_with_fqdn( $id, $handler2 );
-					$list .= "<br>";
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
 						$t_attr = '|' . implode( '|', $handler2 ) . '|';
@@ -87,11 +87,8 @@ if ( ON == $t_rem_handler ) {
 					}
 				} else {
 					// now send the grouped email
-					$body  = $t_rem_body1;
-					$body .= "<br>";
-					$body .= $list;
-					$body .= "'";
-					$body .= "<br>";
+					$body  = $t_rem_body1. " \n\n";
+					$body .= $list. " \n\n";
 					$body .= $t_rem_body2;
 					$result = email_group_reminder( $handler2, $body);
 					$handler2 = $handler ;
@@ -107,11 +104,8 @@ if ( ON == $t_rem_handler ) {
 			// handle last one
 			if ($results){
 				// now send the grouped email
-				$body  = $t_rem_body1;
-				$body .= "<br>";
-				$body .= $list;
-				$body .= "'";
-				$body .= "<br>";
+				$body  = $t_rem_body1. " \n\n";
+				$body .= $list. " \n\n";
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $handler2, $body);
 			
@@ -138,7 +132,7 @@ if ( ON == $t_rem_manager ) {
 	$results = mysql_query( $query );
 	if ($results){
 		$start = true ;
-		$list= "'";
+		$list= "";
 		// first group and store reminder per issue
 		while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
 			$id 		= $row1[0];
@@ -149,15 +143,12 @@ if ( ON == $t_rem_manager ) {
 				$start = false ;
 			}
 			if ($manager=$man2){
+				$list .=" \n\n"; 
 				$list .= string_get_bug_view_url_with_fqdn( $id, $man2 );
-				$list .= "<br>";
 			} else {
 				// now send the grouped email
-				$body  = $t_rem_body1;
-				$body .= "<br>";
-				$body .= $list;
-				$body .= "'";
-				$body .= "<br>";
+				$body  = $t_rem_body1. " \n\n";
+				$body .= $list. " \n\n";
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $man2, $body);
 				$man2 = $manager ;
@@ -168,11 +159,8 @@ if ( ON == $t_rem_manager ) {
 		// handle last one
 		if ($results){
 			// now send the grouped email
-			$body  = $t_rem_body1;
-			$body .= "<br>";
-			$body .= $list;
-			$body .= "'";
-			$body .= "<br>";
+			$body  = $t_rem_body1. " \n\n";
+			$body .= $list. " \n\n";
 			$body .= $t_rem_body2;
 			$result = email_group_reminder( $man2, $body);
 		
