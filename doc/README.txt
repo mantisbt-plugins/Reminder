@@ -65,14 +65,15 @@ reminder_feedback_project = 0; means ALL
 
 // For which status to send feedbackreminders
 reminder_bug_status = FEEDBACK
+
 ********************************************************************************************
 Automatically generating mail                                                              *
 ********************************************************************************************
 After this, bug_reminder_mail can be used via cron like this:
-*/1440 *   *   *   * lynx --dump http://mantis.homepage.com/plugin.php?page=Reminder/bug_reminder_mail.php
+*/1440 *   *   *   * lynx --dump http://mantis.homepage.com/plugins/Reminder/scripts/bug_reminder_mail.php
 
 or via command line interface
-*/1440 *   *   *   * /usr/local/bin/php /path/to/mantis/plugin.php?page=Reminder/bug_reminder_mail.php
+*/1440 *   *   *   * /usr/local/bin/php /path/to/mantis/plugins/Reminder/scripts/bug_reminder_mail.php
 
 This line would send out a reminder every day. 
 
@@ -81,7 +82,7 @@ You also can use a scheduled task under windows by calling a batch-file like:
 REM *** this batch is running as a scheduled task under the ... Account ***
 g:
 cd \inetpub\wwwroot\mantis
-php.exe plugin.php?page=Reminder/bug_reminder_mail.php
+php.exe plugins/Reminder/scripts/bug_reminder_mail.php
 
 
 One can also schedule a job to prompt reporters to respond because their issue has status Feedback.
@@ -91,7 +92,7 @@ Extras                                                                          
 ********************************************************************************************
 On top of that, i have created a little variant which will create a spreadsheet with issues getting due.
 Call script like:
-http://www.YourMantisHome.com/bug_due_overview2.php?days=2&status=50
+http://www.YourMantisHome.com/plugins/Reminder/scripts/bug_due_overview2.php?days=2&status=50
 If you do not apply parameters, the script will default to the above.
 
 ********************************************************************************************
@@ -104,5 +105,5 @@ Greetings                                                                       
 ********************************************************************************************
 Cas Nuy February 2009
 
-Version 1.02
-bugfixes 	March 2010
+Version 1.07
+bugfixes 	April 2010

@@ -227,7 +227,19 @@ print_manage_menu();
 	</td>
 </tr>
 
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
 
+<tr <?php echo helper_alternate_class() ?>>
+	<td class="category" width="60%">
+		<?php echo lang_get( 'reminder_login' ) ?>
+	</td>
+	<td  width="20%">
+			<input type="text" name="reminder_login" size="15" maxlength="15" value="<?php echo plugin_config_get( 'reminder_login' )?>" >
+	</td><td></td>
+</tr>
 <tr>
 	<td class="center" colspan="3">
 		<input type="submit" class="button" value="<?php echo lang_get( 'reminder_update_config' ) ?>" />

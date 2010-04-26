@@ -1,0 +1,1 @@
+These scripts have been moved to the scripts directory
