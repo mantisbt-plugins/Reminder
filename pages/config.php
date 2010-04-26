@@ -45,10 +45,13 @@ print_manage_menu();
 		<?php echo lang_get( 'reminder_project_name' ) ?>
 	</td>
 	<td width="20%">
-		<select name="reminder_project_id">
-			<option value="0" selected="selected"><?php echo lang_get( 'all_projects' ); ?></option>
-			<?php print_project_option_list( ALL_PROJECTS, false ) ?>
-		</select>
+			<select name="reminder_project_id">
+			<option value="0" ><?php echo lang_get( 'all_projects' ); ?></option>
+			<?php
+			$t_value=plugin_config_get( 'reminder_project_id');
+			print_project_option_list( $t_value, FALSE, NULL, FALSE ) ;
+			?>
+			</select> 
 	</td>
 		</td><td>
 </tr>
@@ -192,16 +195,23 @@ print_manage_menu();
 	</td><td></td>
 </tr>
 
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
 
 <tr <?php echo helper_alternate_class() ?> >
 	<td class="category" width="60%">
 		<?php echo lang_get( 'reminder_feedback_project_name' ) ?>
 	</td>
 	<td width="20%">
-		<select name="reminder_feedback_project">
-			<option value="0" selected="selected"><?php echo lang_get( 'all_projects' ); ?></option>
-			<?php print_project_option_list( ALL_PROJECTS, false ) ?>
-		</select>
+			<select name="reminder_feedback_project">
+			<option value="0" ><?php echo lang_get( 'all_projects' ); ?></option>
+			<?php
+			$t_value=plugin_config_get( 'reminder_feedback_project');
+			print_project_option_list( $t_value, FALSE, NULL, FALSE ) ;
+			?>
+			</select> 
 	</td>
 		</td><td>
 </tr>

@@ -20,7 +20,7 @@ $f_reminder_group_body2			= gpc_get_string('reminder_group_body2','Please do not
 $f_reminder_feedback_project	= gpc_get_int('reminder_feedback_project',0);
 $f_reminder_feedback_status		= gpc_get_int('reminder_feedback_status',FEEDBACK);
 
-plugin_config_set('reminder_project)id'			, $f_reminder_project_id);	
+plugin_config_set('reminder_project_id'			, $f_reminder_project_id);	
 plugin_config_set('reminder_days_treshold'		, $f_reminder_days_treshold);			
 plugin_config_set('reminder_store_as_note'		, $f_reminder_store_as_note);			
 plugin_config_set('reminder_sender'				, $f_reminder_sender);				
@@ -35,5 +35,8 @@ plugin_config_set('reminder_manager_overview'	, $f_reminder_manager_overview);
 plugin_config_set('reminder_group_subject'		, $f_reminder_group_subject);	
 plugin_config_set('reminder_group_body1'		, $f_reminder_group_body1);	
 plugin_config_set('reminder_group_body2'		, $f_reminder_group_body2);	
+plugin_config_set('reminder_feedback_project'	, $f_reminder_feedback_project);	
+plugin_config_set('reminder_feedback_status'	, $f_reminder_feedback_status);	
+
 
 print_successful_redirect( plugin_page( 'config',TRUE ) );
