@@ -1,6 +1,6 @@
 <?php
 # This page sends an E-mail to the reporter if an issue is awaiting feedback
-require_once( '/../../../core.php' );
+require_once( '../../../core.php' );
 $t_login	= config_get( 'plugin_Reminder_reminder_login' );
 $ok=auth_attempt_script_login( $t_login ); 
 $t_core_path = config_get( 'core_path' );

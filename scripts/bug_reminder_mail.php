@@ -1,7 +1,7 @@
 <?php
 # This page sends an E-mail if a due date is getting near
 # includes all due_dates not met
-require_once( '/../../../core.php' );
+require_once( '../../../core.php' );
 $t_login	= config_get( 'plugin_Reminder_reminder_login' );
 $ok=auth_attempt_script_login( $t_login ); 
 $t_core_path = config_get( 'core_path' );
@@ -38,9 +38,10 @@ if ( ON == $t_rem_handler ) {
 	$query = "select id,handler_id,project_id from $t_bug_table where status=$t_rem_status and due_date<=$baseline and handler_id<>0 ";
 	if ( ON == $t_rem_ignore ) {
 		$query .=" and due_date>1" ;
-	}
-	if ( ON == $t_rem_ign_past ) {
-		$query .=" and due_date>$basenow" ;
+	} else{
+		if ( ON == $t_rem_ign_past ) {
+			$query .=" and due_date>=$basenow" ;
+		}
 	}
 	if ( $t_rem_project>0 ) {
 		$query .=" and project_id=t_rem_project" ;
@@ -52,12 +53,17 @@ if ( ON == $t_rem_handler ) {
 		$query .=" order by project_id,handler_id" ;
 	}
 	$results = mysql_query( $query );
+	$resnum=mysql_num_rows($results);
 	if ( OFF == $t_rem_group1 ) {
 		if ($results) {
 			while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
 				$id 		= $row1[0];
 				$handler	= $row1[1];
-				$result = email_bug_reminder( $handler, $id, $t_rem_body );
+				$list = string_get_bug_view_url_with_fqdn( $id, $handler2 );
+				$body  = $t_rem_body1. " \n\n";
+				$body .= $list. " \n\n";
+				$body .= $t_rem_body2;
+				$result = email_group_reminder( $handler, $body );
 				# Add reminder as bugnote if store reminders option is ON.
 				if ( ON == $t_rem_store ) {
 					$t_attr = '|' . implode( '|', $handler ) . '|';
@@ -78,7 +84,7 @@ if ( ON == $t_rem_handler ) {
 					$handler2 = $handler ;
 					$start = false ;
 				}
-				if ($handler=$handler2){
+				if ($handler==$handler2){
 					$list .=" \n\n"; 
 					$list .= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
@@ -93,8 +99,8 @@ if ( ON == $t_rem_handler ) {
 					$body .= $t_rem_body2;
 					$result = email_group_reminder( $handler2, $body);
 					$handler2 = $handler ;
+					$list =" \n\n"; 
 					$list= string_get_bug_view_url_with_fqdn( $id, $handler2 );
-					$list .= "<br>";					
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
 						$t_attr = '|' . implode( '|', $handler2 ) . '|';
@@ -103,14 +109,14 @@ if ( ON == $t_rem_handler ) {
 				}
 			}
 			// handle last one
-			if ($results){
+			if ($resnum>0){
 				// now send the grouped email
 				$body  = $t_rem_body1. " \n\n";
 				$body .= $list. " \n\n";
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $handler2, $body);
 			
-			}
+			} 
 			//
 		}
 	}
@@ -121,9 +127,10 @@ if ( ON == $t_rem_manager ) {
 	$query  = "select id,handler_id,user_id from $t_bug_table,$t_man_table where status=$t_rem_status and due_date<=$baseline ";
 	if ( ON == $t_rem_ignore ) {
 		$query .=" and due_date>1" ;
-	}
-	if ( ON == $t_rem_ign_past ) {
-		$query .=" and due_date>$basenow" ;
+	} else{
+		if ( ON == $t_rem_ign_past ) {
+			$query .=" and due_date>=$basenow" ;
+		}
 	}
 	if ( $t_rem_project>0 ) {
 		$query .=" and project_id=t_rem_project" ;
@@ -131,6 +138,7 @@ if ( ON == $t_rem_manager ) {
 	$query .=" and $t_bug_table.project_id=$t_man_table.project_id and $t_man_table.access_level=70" ;
 	$query .=" order by $t_man_table.project_id,$t_man_table.user_id" ;
 	$results = mysql_query( $query );
+	$resnum=mysql_num_rows($results);
 	if ($results){
 		$start = true ;
 		$list= "";
@@ -143,7 +151,7 @@ if ( ON == $t_rem_manager ) {
 				$man2 = $manager ;
 				$start = false ;
 			}
-			if ($manager=$man2){
+			if ($manager==$man2){
 				$list .=" \n\n"; 
 				$list .= string_get_bug_view_url_with_fqdn( $id, $man2 );
 			} else {
@@ -158,15 +166,14 @@ if ( ON == $t_rem_manager ) {
 			}
 		}
 		// handle last one
-		if ($results){
+		if ($resnum>0){
 			// now send the grouped email
 			$body  = $t_rem_body1. " \n\n";
 			$body .= $list. " \n\n";
 			$body .= $t_rem_body2;
 			$result = email_group_reminder( $man2, $body);
 		
-		}
-		//
+		}		//
 	} 
 }
 

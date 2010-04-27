@@ -95,6 +95,9 @@ Call script like:
 http://www.YourMantisHome.com/plugins/Reminder/scripts/bug_due_overview2.php?days=2&status=50
 If you do not apply parameters, the script will default to the above.
 
+In the script directory you will also find a script called bug_reminder_mail_test.php
+This script which you should call from within the browser (once logged on) will provide useful feedback if things are not working as expected.
+In case of a blank screen, all is processed normally.
 ********************************************************************************************
 License                                                                                    *
 ********************************************************************************************
@@ -105,5 +108,5 @@ Greetings                                                                       
 ********************************************************************************************
 Cas Nuy February 2009
 
-Version 1.07
+Version 1.08
 bugfixes 	April 2010
