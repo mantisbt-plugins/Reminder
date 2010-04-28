@@ -163,7 +163,7 @@ if ( ON == $t_rem_manager ) {
 				$result = email_group_reminder( $man2, $body);
 				$man2 = $manager ;
 				$list= string_get_bug_view_url_with_fqdn( $id, $man2 );
-				$list .= "<br>";					
+				$list .= " \n\n";					
 			}
 		}
 		// handle last one
@@ -178,12 +178,8 @@ if ( ON == $t_rem_manager ) {
 		//
 	} 
 }
-if (php_sapi_name() <> 'cli'){
-	echo "Finished processing without unexpected problems.";
-	echo "<br>";
-	echo "For all issues falling within the selection, an email has been sent as defined." ;
-	echo "<br>";
-	echo "In case no emails have been dispatched, review your selection criteria." ;
+if (php_sapi_name() !== 'cli'){
+	echo config_get( 'plugin_Reminder_reminder_finished' );
 }
 
 # Send Grouped reminder

@@ -3,7 +3,7 @@ class ReminderPlugin extends MantisPlugin {
 	function register() {
 		$this->name        = 'Reminder';
 		$this->description = 'Sends E-mail to warn for Coming Due Dates';
-		$this->version     = '1.09';
+		$this->version     = '1.10';
 		$this->requires    = array('MantisCore'       => '1.2.0',);
 		$this->author      = 'Cas Nuy';
 		$this->contact     = 'Cas-at-nuy.info';
@@ -31,7 +31,9 @@ class ReminderPlugin extends MantisPlugin {
 			'reminder_project_id'			=> 0,
 			'reminder_login'				=> 'admin',
 			'reminder_feedback_project'		=> 0,
-			'reminder_feedback_status'		=>20,
+			'reminder_feedback_status'		=> 20,
+			'reminder_subject'				=> 'Issues requiring your attention',
+			'reminder_finished'				=> 'Finished processing your selection',
 			);
 	}
 	

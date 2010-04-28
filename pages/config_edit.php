@@ -20,6 +20,8 @@ $f_reminder_group_body2			= gpc_get_string('reminder_group_body2','Please do not
 $f_reminder_feedback_project	= gpc_get_int('reminder_feedback_project',0);
 $f_reminder_feedback_status		= gpc_get_int('reminder_feedback_status',FEEDBACK);
 $f_reminder_login				= gpc_get_string('reminder_login', 'admin');	
+$f_reminder_subject				= gpc_get_string('reminder_subject', 'Issues requiring your attention');	
+$f_reminder_finished			= gpc_get_string('reminder_finished', 'Finished processing your selection');	
 
 plugin_config_set('reminder_project_id'			, $f_reminder_project_id);	
 plugin_config_set('reminder_days_treshold'		, $f_reminder_days_treshold);			
@@ -39,6 +41,8 @@ plugin_config_set('reminder_group_body2'		, $f_reminder_group_body2);
 plugin_config_set('reminder_feedback_project'	, $f_reminder_feedback_project);	
 plugin_config_set('reminder_feedback_status'	, $f_reminder_feedback_status);	
 plugin_config_set('reminder_login'				, $f_reminder_login);	
+plugin_config_set('reminder_subject'			, $f_reminder_subject);	
+plugin_config_set('reminder_finished'			, $f_reminder_finished);	
 
 
 print_successful_redirect( plugin_page( 'config',TRUE ) );

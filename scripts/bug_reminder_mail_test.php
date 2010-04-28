@@ -34,6 +34,10 @@ $t_rem_body2	= config_get( 'plugin_Reminder_reminder_group_body2' );
 //
 $baseline	= time(true)+ ($t_rem_days*24*60*60);
 $basenow	= time(true);
+
+echo "Path setting retrieved : ".config_get('path');
+echo "<br>";
+
 if ( ON == $t_rem_handler ) {
 	echo 'Query-handler being executed' ;
 	echo '<br>';
@@ -176,7 +180,7 @@ if ( ON == $t_rem_manager ) {
 				$result = email_group_reminder( $man2, $body);
 				$man2 = $manager ;
 				$list= string_get_bug_view_url_with_fqdn( $id, $man2 );
-				$list .= "<br>";					
+				$list .= " \n\n";					
 			}
 		}
 		// handle last one

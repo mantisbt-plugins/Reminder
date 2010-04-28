@@ -8,12 +8,11 @@ $t_core_path = config_get( 'core_path' );
 require_once( $t_core_path.'email_api.php' );
 
 $t_bug_table	= db_get_table( 'mantis_bug_table' );
-// next 2 lines to be made variable
-$t_rem_body1 = 'The following issue(s) are awaiting your input';
-$t_rem_body2 = 'Please do not reply to this message, use the helpdesk system itself';
 
 $t_project		= config_get('plugin_Reminder_reminder_feedback_project');
 $status			= config_get('plugin_Reminder_reminder_feedback_status');
+$t_rem_body1	= config_get( 'plugin_Reminder_reminder_group_body1' );
+$t_rem_body2	= config_get( 'plugin_Reminder_reminder_group_body2' );
 
 if ($project>0){
 	$query = "select id,reporter_id,project_id from $t_bug_table where status=$status and project_id=$project order by reporter_id";
@@ -54,10 +53,8 @@ if ($results){
 		$result = email_group_reminder( $handler2, $body);
 	}
 } 
-if (php_sapi_name() <> 'cli'){
-	echo "Finished processing without unexpected problems.";
-	echo "<br>";
-	echo "For all issues falling within the selection, an email has been sent as defined." ;
+if (php_sapi_name() !== 'cli'){
+	echo config_get( 'plugin_Reminder_reminder_finished' );
 }
 
 # Send Grouped reminder
@@ -65,8 +62,7 @@ function email_group_reminder( $p_user_id, $issues ) {
 	$t_username = user_get_field( $p_user_id, 'username' );
 	$t_email = user_get_email( $p_user_id );
 	$t_message = $issues ;
-// next line to be made variable
-	$t_subject   = 'Issues requiring your attention';
+	$t_subject	= config_get( 'plugin_Reminder_reminder_subject' );
 	if( !is_blank( $t_email ) ) {
 		email_store( $t_email, $t_subject, $t_message );
 		if( OFF == config_get( 'email_send_using_cronjob' ) ) {

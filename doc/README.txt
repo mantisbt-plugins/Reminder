@@ -8,6 +8,20 @@ This plugin is build upon version 1.2.x of mantis and should be installed as any
 No Mantis scripts or tables are being altered.
 
 ********************************************************************************************
+* Installation                                                                             *
+********************************************************************************************
+Like any other plugin. 
+After copying to your webserver :
+- Start mantis ad administrator
+- Select manage
+- Select manage Plugins
+- Select Install behind Reminder 1.10
+- Once installed, double click on the plugin for further configuration.
+
+For version 1.2.1 make sure to have this statement in confg_inc.php:
+$g_path          = 'http://path to your mantis installation/';
+
+********************************************************************************************
 Configuration options                                                                      *
 ********************************************************************************************
 
@@ -98,6 +112,7 @@ If you do not apply parameters, the script will default to the above.
 In the script directory you will also find a script called bug_reminder_mail_test.php
 This script which you should call from within the browser (once logged on) will provide useful feedback if things are not working as expected.
 In case of a blank screen, all is processed normally.
+
 ********************************************************************************************
 License                                                                                    *
 ********************************************************************************************
@@ -108,5 +123,5 @@ Greetings                                                                       
 ********************************************************************************************
 Cas Nuy February 2009
 
-Version 1.08
+Version 1.10
 bugfixes 	April 2010

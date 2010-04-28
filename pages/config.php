@@ -226,7 +226,14 @@ print_manage_menu();
 	</td> 
 	</td>
 </tr>
-
+<tr <?php echo helper_alternate_class() ?>>
+	<td class="category" width="60%">
+		<?php echo lang_get( 'reminder_subject' ) ?>
+	</td>
+	<td  width="20%">
+			<input type="text" name="reminder_subject" size="50" maxlength="50" value="<?php echo plugin_config_get( 'reminder_subject' )?>" >
+	</td><td></td>
+</tr>
 <tr></tr>
 <tr></tr>
 <tr></tr>
@@ -238,6 +245,14 @@ print_manage_menu();
 	</td>
 	<td  width="20%">
 			<input type="text" name="reminder_login" size="15" maxlength="15" value="<?php echo plugin_config_get( 'reminder_login' )?>" >
+	</td><td></td>
+</tr>
+<tr <?php echo helper_alternate_class() ?>>
+	<td class="category" width="60%">
+		<?php echo lang_get( 'reminder_finished' ) ?>
+	</td>
+	<td  width="20%">
+			<input type="text" name="reminder_finished" size="50" maxlength="50" value="<?php echo plugin_config_get( 'reminder_finished' )?>" >
 	</td><td></td>
 </tr>
 <tr>

@@ -23,4 +23,5 @@ $s_reminder_download				= "Download Due issues";
 $s_reminder_feedback_project_name	= "Select project to receive Feedback-mail";
 $s_reminder_feedback_status			= "Only select issues with status" ;
 $s_reminder_login					= "Run scheduled script on the account of: " ;
-
+$s_reminder_subject					= "Subject of the Email for Feedback script" ;
+$s_reminder_finished				= "Screen text when finished if run in browser" ;
