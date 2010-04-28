@@ -1,6 +1,6 @@
 <?php
-# This page sends an E-mail if a due date is getting near
-# includes all due_dates not met
+# This page tests sending an E-mail if a due date is getting near
+# No real email is sent not are notes crreated for the various issues
 require_once( '../../../core.php' );
 $t_login	= config_get( 'plugin_Reminder_reminder_login' );
 $ok=auth_attempt_script_login( $t_login ); 
@@ -38,21 +38,22 @@ if ( ON == $t_rem_handler ) {
 	echo 'Query-handler being executed' ;
 	echo '<br>';
 	$query = "select id,handler_id,project_id from $t_bug_table where status=$t_rem_status and due_date<=$baseline and handler_id<>0 ";
-	if ( ON == $t_rem_ignore ) {
-		$query .=" and due_date>1" ;
-	} else{
-		if ( ON == $t_rem_ign_past ) {
+	if ( ON == $t_rem_ign_past ) {
 			$query .=" and due_date>=$basenow" ;
+	} else{
+		if ( ON == $t_rem_ignore ) {
+			$query .=" and due_date>1" ;
 		}
 	}
 	if ( $t_rem_project>0 ) {
-		$query .=" and project_id=t_rem_project" ;
+		$query .=" and project_id=$t_rem_project" ;
 	}
 	if ( ON == $t_rem_group1 ) {
 		$query .=" order by handler_id" ;
-	}
-	if ( ON == $t_rem_group2 ) {
-		$query .=" order by project_id,handler_id" ;
+	}else{
+		if ( ON == $t_rem_group2 ) {
+			$query .=" order by project_id,handler_id" ;
+		}
 	}
 	$results = mysql_query( $query );
 	$resnum=mysql_num_rows($results);
@@ -68,7 +69,7 @@ if ( ON == $t_rem_handler ) {
 				$result = email_group_reminder( $handler, $body );
 				# Add reminder as bugnote if store reminders option is ON.
 				if ( ON == $t_rem_store ) {
-					$t_attr = '|' . implode( '|', $handler ) . '|';
+					$t_attr = '|'.$handler2.'|';
 //					bugnote_add( $id, $t_rem_body, 0, config_get( 'default_reminder_view_status' ) == VS_PRIVATE, REMINDER, $t_attr, NULL, FALSE );
 				}
 			}
@@ -94,7 +95,7 @@ if ( ON == $t_rem_handler ) {
 					$list .= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
-						$t_attr = '|' . implode( '|', $handler2 ) . '|';
+						$t_attr = '|'.$handler2.'|';
 //						bugnote_add( $id, $t_rem_body, 0, config_get( 'default_reminder_view_status' ) == VS_PRIVATE, REMINDER, $t_attr, NULL, FALSE );
 					}
 				} else {
@@ -108,7 +109,7 @@ if ( ON == $t_rem_handler ) {
 					$list= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
-						$t_attr = '|' . implode( '|', $handler2 ) . '|';
+						$t_attr = '|'.$handler2.'|';
 //						bugnote_add( $id, $t_rem_body, 0, config_get( 'default_reminder_view_status' ) == VS_PRIVATE, REMINDER, $t_attr, NULL, FALSE );
 					}
 				}
@@ -138,15 +139,15 @@ if ( ON == $t_rem_manager ) {
 	echo '<br>';
 	// select relevant issues in combination with an assigned manager to the project
 	$query  = "select id,handler_id,user_id from $t_bug_table,$t_man_table where status=$t_rem_status and due_date<=$baseline ";
-	if ( ON == $t_rem_ignore ) {
-		$query .=" and due_date>1" ;
-	} else{
-		if ( ON == $t_rem_ign_past ) {
+	if ( ON == $t_rem_ign_past ) {
 			$query .=" and due_date>=$basenow" ;
+	} else{
+		if ( ON == $t_rem_ignore ) {
+			$query .=" and due_date>1" ;
 		}
 	}
 	if ( $t_rem_project>0 ) {
-		$query .=" and project_id=t_rem_project" ;
+		$query .=" and $t_bug_table.project_id=$t_rem_project" ;
 	}
 	$query .=" and $t_bug_table.project_id=$t_man_table.project_id and $t_man_table.access_level=70" ;
 	$query .=" order by $t_man_table.project_id,$t_man_table.user_id" ;
@@ -196,6 +197,8 @@ if ( ON == $t_rem_manager ) {
 		echo '<br>';
 	}
 }
+echo '<br><br><br>';
+echo 'Finished Reminder Test ';
 
 # Send Grouped reminder
 function email_group_reminder( $p_user_id, $issues ) {

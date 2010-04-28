@@ -54,6 +54,12 @@ if ($results){
 		$result = email_group_reminder( $handler2, $body);
 	}
 } 
+if (php_sapi_name() <> 'cli'){
+	echo "Finished processing without unexpected problems.";
+	echo "<br>";
+	echo "For all issues falling within the selection, an email has been sent as defined." ;
+}
+
 # Send Grouped reminder
 function email_group_reminder( $p_user_id, $issues ) {
 	$t_username = user_get_field( $p_user_id, 'username' );

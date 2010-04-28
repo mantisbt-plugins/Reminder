@@ -3,7 +3,7 @@ class ReminderPlugin extends MantisPlugin {
 	function register() {
 		$this->name        = 'Reminder';
 		$this->description = 'Sends E-mail to warn for Coming Due Dates';
-		$this->version     = '1.08';
+		$this->version     = '1.09';
 		$this->requires    = array('MantisCore'       => '1.2.0',);
 		$this->author      = 'Cas Nuy';
 		$this->contact     = 'Cas-at-nuy.info';
