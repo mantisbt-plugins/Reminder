@@ -41,7 +41,7 @@ echo "<br>";
 if ( ON == $t_rem_handler ) {
 	echo 'Query-handler being executed' ;
 	echo '<br>';
-	$query = "select id,handler_id,project_id from $t_bug_table where status=$t_rem_status and due_date<=$baseline and handler_id<>0 ";
+	$query = "select id,handler_id,project_id from $t_bug_table where status=$t_rem_status and due_date<=$baseline and handler_id>0 ";
 	if ( ON == $t_rem_ign_past ) {
 			$query .=" and due_date>=$basenow" ;
 	} else{
@@ -59,16 +59,26 @@ if ( ON == $t_rem_handler ) {
 			$query .=" order by project_id,handler_id" ;
 		}
 	}
-	$results = mysql_query( $query );
-	$resnum=mysql_num_rows($results);
+	echo $query;
+	echo "<br>"  ;
+	$results = db_query_bound( $query );
+	$resnum=db_num_rows($results);
+	echo $resnum;
+	echo "<br>"  ;
 	if ( OFF == $t_rem_group1 ) {
 		if ($results) {
-			while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
-				$id 		= $row1[0];
-				$handler	= $row1[1];
+			while ($row1 = db_fetch_array($results)) {
+				$id 		= $row1['id'];
+				$handler	= $row1['handler_id'];
+				echo $id;
+				echo '*';
+				echo $handler;
+				echo "<br>";
 				$list = string_get_bug_view_url_with_fqdn( $id, $handler2 );
-				$body  = $t_rem_body1. " \n\n";
-				$body .= $list. " \n\n";
+				$body  = $t_rem_body1;
+				$body .= "<br>";
+				$body .= $list;
+				$body .= "<br>";
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $handler, $body );
 				# Add reminder as bugnote if store reminders option is ON.
@@ -86,16 +96,22 @@ if ( ON == $t_rem_handler ) {
 			$start = true ;
 			$list= "";
 			// first group and store reminder per issue
-			while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
-				$id 		= $row1[0];
-				$handler	= $row1[1];
-				$project	= $row1[2];
+			while ($row1 = db_fetch_array($results)) {
+				$id 		= $row1['id'];
+				$handler	= $row1['handler_id'];
+				$project	= $row1['project_id'];
+				echo $id;
+				echo '*';
+				echo $handler;
+				echo '*';
+				echo $project;
+				echo "<br>";
 				if ($start){
 					$handler2 = $handler ;
 					$start = false ;
 				}
 				if ($handler==$handler2){
-					$list .=" \n\n"; 
+					$list .="<br>"; 
 					$list .= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
@@ -104,12 +120,14 @@ if ( ON == $t_rem_handler ) {
 					}
 				} else {
 					// now send the grouped email
-					$body  = $t_rem_body1. " \n\n";
-					$body .= $list. " \n\n";
+					$body  = $t_rem_body1;
+					$body .= "<br>";
+					$body .= $list;
+					$body .= "<br>";
 					$body .= $t_rem_body2;
 					$result = email_group_reminder( $handler2, $body);
 					$handler2 = $handler ;
-					$list =" \n\n"; 
+					$list ="<br>"; 
 					$list= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
@@ -121,8 +139,10 @@ if ( ON == $t_rem_handler ) {
 			// handle last one
 			if ($resnum>0){
 				// now send the grouped email
-				$body  = $t_rem_body1. " \n\n";
-				$body .= $list. " \n\n";
+				$body  = $t_rem_body1;
+				$body .= "<br>";
+				$body .= $list;
+				$body .= "<br>";
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $handler2, $body);
 			
@@ -155,16 +175,26 @@ if ( ON == $t_rem_manager ) {
 	}
 	$query .=" and $t_bug_table.project_id=$t_man_table.project_id and $t_man_table.access_level=70" ;
 	$query .=" order by $t_man_table.project_id,$t_man_table.user_id" ;
-	$results = mysql_query( $query );
-	$resnum=mysql_num_rows($results);
+	echo $query;
+	echo "<br>"  ;
+	$results = db_query_bound( $query );
+	$resnum=db_num_rows($results);
+	echo $resnum;
+	echo "<br>"  ;
 	if ($results){
 		$start = true ;
 		$list= "";
 		// first group and store reminder per issue
-		while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
-			$id 		= $row1[0];
-			$handler	= $row1[1];
-			$manager	= $row1[2];
+		while ($row1 = db_fetch_array($results)) {
+				$id 		= $row1['id'];
+				$handler	= $row1['handler_id'];
+				$manager	= $row1['user_id'];
+			echo $id;
+			echo '*';
+			echo $handler;
+			echo '*';
+			echo $manager;
+			echo "<br>";
 			if ($start){
 				$man2 = $manager ;
 				$start = false ;

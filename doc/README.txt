@@ -16,7 +16,7 @@ After copying to your webserver :
 - Select manage
 - Select manage Plugins
 - Select Install behind Reminder 1.10
-- Once installed, double click on the plugin for further configuration.
+- Once installed, click on the plugin-name for further configuration.
 
 For version 1.2.1 make sure to have this statement in confg_inc.php:
 $g_path          = 'http://path to your mantis installation/';
@@ -119,9 +119,18 @@ License                                                                         
 This plugin is distributed under the same conditions as Mantis itself.
 
 ********************************************************************************************
+Mantis Issue                                                                               *
+********************************************************************************************
+http://www.mantisbt.org/bugs/view.php?id=10153
+
+********************************************************************************************
+Thanks                                                                                     *
+********************************************************************************************
+Mark Ziegler	German translation	May 2010
+
+********************************************************************************************
 Greetings                                                                                  *
 ********************************************************************************************
-Cas Nuy February 2009
-
-Version 1.10
-bugfixes 	April 2010
+Cas Nuy 
+cas@nuy.info
+http://www.nuy.info

@@ -19,15 +19,15 @@ if ($project>0){
 } else{
 	$query = "select id,reporter_id,project_id from $t_bug_table where status=$status order by reporter_id";
 }
-$results = mysql_query( $query );
+$results = db_query_bound( $query );
 if ($results){
 	$start = true ;
 	$list= "";
 	// first group and store reminder per issue
-	while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
-		$id 		= $row1[0];
-		$handler	= $row1[1];
-		$project	= $row1[2];
+	while ($row1 = db_fetch_array($results)) {
+		$id 		= $row1['id'];
+		$handler	= $row1['handler_id'];
+		$project	= $row1['project_id'];
 		if ($start){
 			$handler2 = $handler ;
 			$start = false ;

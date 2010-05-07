@@ -1,0 +1,21 @@
+Version 0.91	23-02-2009		Initial version
+Version 1.0		16-03-2009		Bugfixes
+								Added bonus program 
+Version 1.03	22-04-2009		Bugfixes
+								Added program to request feedback from users
+Version 1.04	23-04-2010		Bugfixes
+Version 1.05	23-04-2010		Bugfixes
+								Adjusted lay-out of emails
+Version 1.06	26-04-2010		Bugfixes
+								Adjusted authorisations when scheduled
+Version 1.07	26-04-2010		Bugfixes
+								Corrected the scheduling facilities
+Version 1.08	27-04-2010		Bugfixes
+								Added a test script to facilitate local verifying
+Version 1.09	28-04-2010		Bugfixes
+								Added results screen when ran from within browser
+Version 1.10	29-04-2010		Bugfixes
+								All fields translatable
+								Compatible with 1.2.1
+Version 1.11	07-05-2010		Added German translation ( thanks to Mark Ziegler)	
+								Converted all mysql_query calls to mantis api calls

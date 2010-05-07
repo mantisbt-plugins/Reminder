@@ -53,13 +53,13 @@ if ( ON == $t_rem_handler ) {
 			$query .=" order by project_id,handler_id" ;
 		}
 	}
-	$results = mysql_query( $query );
-	$resnum=mysql_num_rows($results);
+	$results = db_query_bound( $query );
+	$resnum=db_num_rows($results);
 	if ( OFF == $t_rem_group1 ) {
 		if ($results) {
-			while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
-				$id 		= $row1[0];
-				$handler	= $row1[1];
+			while ($row1 = db_fetch_array($results)) {
+				$id 		= $row1['id'];
+				$handler	= $row1['handler_id'];
 				$list = string_get_bug_view_url_with_fqdn( $id, $handler2 );
 				$body  = $t_rem_body1. " \n\n";
 				$body .= $list. " \n\n";
@@ -77,10 +77,10 @@ if ( ON == $t_rem_handler ) {
 			$start = true ;
 			$list= "";
 			// first group and store reminder per issue
-			while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
-				$id 		= $row1[0];
-				$handler	= $row1[1];
-				$project	= $row1[2];
+			while ($row1 = db_fetch_array($results)) {
+				$id 		= $row1['id'];
+				$handler	= $row1['handler_id'];
+				$project	= $row1['project_id'];
 				if ($start){
 					$handler2 = $handler ;
 					$start = false ;
@@ -138,16 +138,16 @@ if ( ON == $t_rem_manager ) {
 	}
 	$query .=" and $t_bug_table.project_id=$t_man_table.project_id and $t_man_table.access_level=70" ;
 	$query .=" order by $t_man_table.project_id,$t_man_table.user_id" ;
-	$results = mysql_query( $query );
-	$resnum=mysql_num_rows($results);
+	$results = db_query_bound( $query );
+	$resnum=db_num_rows($results);
 	if ($results){
 		$start = true ;
 		$list= "";
 		// first group and store reminder per issue
-		while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
-			$id 		= $row1[0];
-			$handler	= $row1[1];
-			$manager	= $row1[2];
+		while ($row1 = db_fetch_array($results)) {
+			$id 		= $row1['id'];
+			$handler	= $row1['handler_id'];
+			$manager	= $row1['user_id'];
 			if ($start){
 				$man2 = $manager ;
 				$start = false ;

@@ -30,7 +30,7 @@ $t_bug_table	= db_get_table( 'mantis_bug_table' );
 $t_user_table	= db_get_table( 'mantis_user_table' );
 $baseline=time(true)+ ($t_rem_days*24*60*60);
 $query="select $t_bug_table.id,summary,due_date,username,realname from $t_bug_table,$t_user_table where $t_bug_table.handler_id=$t_user_table.id and status=$t_rem_status and due_date>1 and due_date<=$baseline" ;
-$results = mysql_query( $query );
+$results = db_query_bound( $query );
 if (!$results) {
 	echo "Nothing to report (or version too old,no due_date field)";
 	echo '<br>';
@@ -52,12 +52,12 @@ header( 'Content-Disposition: attachment; filename="issues_due.xls"' );
 	$content .= "Name" ;
 	$content .= "\r\n";
 }
-while ($row1 = mysql_fetch_array($results, MYSQL_NUM)) {
-	$id 		= $row1[0];
-	$summary	= $row1[1];
-	$duedate	= date( config_get( 'short_date_format' ),$row1[2] );
-	$assigned	= $row1[3];
-	$name		= $row1[4];
+while ($row1 = db_fetch_array($results)) {
+	$id 		= $row1['id'];
+	$summary	= $row1['summary'];
+	$duedate	= date( config_get( 'short_date_format' ),$row1['due_date'] );
+	$assigned	= $row1['username'];
+	$name		= $row1['realname'];
 	$content .= $id ;
 	$content .= "," ;
 	$content .= $summary ;
