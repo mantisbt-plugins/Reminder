@@ -1,4 +1,9 @@
 <?php
+# Make sure this script doesn't run via the webserver  
+if( php_sapi_name() != 'cli' ) {  
+	echo "It is not allowed to run this script through the webserver.\n";  
+	exit( 1 );  
+}  
 # This page sends an E-mail to the reporter if an issue is awaiting feedback
 require_once( '../../../core.php' );
 $t_login	= config_get( 'plugin_Reminder_reminder_login' );
