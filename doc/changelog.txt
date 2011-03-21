@@ -19,5 +19,6 @@ Version 1.10	29-04-2010		Bugfixes
 								Compatible with 1.2.1
 Version 1.11	07-05-2010		Added German translation ( thanks to Mark Ziegler)	
 								Converted all mysql_query calls to mantis api calls
-Version 1.12					Protected 2 scripts to be ran from within the browser.
+Version 1.12	08-02-2011		Protected 2 scripts to be ran from within the browser.
 								bug_feedback_mail.php & bug_reminder_mail.php
+Version 1.20	21-03-2011		Added the option to use hours instead of days

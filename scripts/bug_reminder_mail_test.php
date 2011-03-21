@@ -27,12 +27,18 @@ $t_rem_subject	= config_get( 'plugin_Reminder_reminder_group_subject' );
 $t_rem_body1	= config_get( 'plugin_Reminder_reminder_group_body1' );
 $t_rem_body2	= config_get( 'plugin_Reminder_reminder_group_body2' );
 
+$t_rem_hours	= config_get('plugin_Reminder_reminder_hours');
+if (ON == $t_rem_hours){
+	$multiply=24;
+} else{
+	$multiply=1;
+}
 //
 // access level for manager= 70
 // this needs to be made flexible
 // we will only produce overview for those projects that have a separate manager
 //
-$baseline	= time(true)+ ($t_rem_days*24*60*60);
+$baseline	= time(true)+ ($t_rem_days*$multiply*60*60);
 $basenow	= time(true);
 
 echo "Path setting retrieved : ".config_get('path');

@@ -43,6 +43,9 @@ reminder_project_id = 0; means ALL
 // how many days before Due date should we take into account
 reminder_days_treshold  = 2;
 
+// Should we use hours instead of days
+reminder_hours		  	= OFF;
+
 // Should we store this reminder as bugnote
 reminder_store_as_note = OFF;
 // only possible for handler
@@ -113,6 +116,7 @@ In the script directory you will also find a script called bug_reminder_mail_tes
 This script which you should call from within the browser (once logged on) will provide useful feedback if things are not working as expected.
 In case of a blank screen, all is processed normally.
 
+For option Days/Hours, the script wil fetch the plugin definition.
 ********************************************************************************************
 License                                                                                    *
 ********************************************************************************************

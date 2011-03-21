@@ -28,7 +28,13 @@ require_once( '../../../core.php' );
 $t_core_path = config_get( 'core_path' );
 $t_bug_table	= db_get_table( 'mantis_bug_table' );
 $t_user_table	= db_get_table( 'mantis_user_table' );
-$baseline=time(true)+ ($t_rem_days*24*60*60);
+$t_rem_hours	= config_get('plugin_Reminder_reminder_hours');
+if (ON == $t_rem_hours){
+	$multiply=24;
+} else{
+	$multiply=1;
+}
+$baseline=time(true)+ ($t_rem_days*$multiply*60*60);
 $query="select $t_bug_table.id,summary,due_date,username,realname from $t_bug_table,$t_user_table where $t_bug_table.handler_id=$t_user_table.id and status=$t_rem_status and due_date>1 and due_date<=$baseline" ;
 $results = db_query_bound( $query );
 if (!$results) {

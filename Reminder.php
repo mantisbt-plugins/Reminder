@@ -3,7 +3,7 @@ class ReminderPlugin extends MantisPlugin {
 	function register() {
 		$this->name        = 'Reminder';
 		$this->description = lang_get( 'reminder_plugin_desc' );
-		$this->version     = '1.12';
+		$this->version     = '1.20';
 		$this->requires    = array('MantisCore'       => '1.2.0',);
 		$this->author      = 'Cas Nuy';
 		$this->contact     = 'Cas-at-nuy.info';
@@ -34,6 +34,7 @@ class ReminderPlugin extends MantisPlugin {
 			'reminder_feedback_status'		=> 20,
 			'reminder_subject'				=> 'Issues requiring your attention',
 			'reminder_finished'				=> 'Finished processing your selection',
+			'reminder_hours'				=> OFF,
 			);
 	}
 	

@@ -39,6 +39,19 @@ print_manage_menu();
 	</td><td></td>
 </tr>
 
+<tr <?php echo helper_alternate_class() ?>>
+	<td class="category" width="60%">
+		<?php echo lang_get( 'reminder_hours' ) ?>
+	</td>
+	<td class="right" width="20%">
+		<label><input type="radio" name="reminder_hours" value="1" <?php echo ( ON == plugin_config_get( 'reminder_hours' ) ) ? 'checked="checked" ' : ''?>/>
+			<?php echo lang_get( 'reminder_store_enabled' ) ?></label>
+	</td>
+	<td class="center" width="20%">
+		<label><input type="radio" name="reminder_hours" value="0" <?php echo ( OFF == plugin_config_get( 'reminder_hours' ) ) ? 'checked="checked" ' : ''?>/>
+			<?php echo lang_get( 'reminder_store_disabled' ) ?></label>
+	</td>
+</tr>
 
 <tr <?php echo helper_alternate_class() ?> >
 	<td class="category" width="60%">

@@ -22,6 +22,7 @@ $f_reminder_feedback_status		= gpc_get_int('reminder_feedback_status',FEEDBACK);
 $f_reminder_login				= gpc_get_string('reminder_login', 'admin');	
 $f_reminder_subject				= gpc_get_string('reminder_subject', 'Issues requiring your attention');	
 $f_reminder_finished			= gpc_get_string('reminder_finished', 'Finished processing your selection');	
+$f_reminder_hours				= gpc_get_int('reminder_hours', OFF);
 
 plugin_config_set('reminder_project_id'			, $f_reminder_project_id);	
 plugin_config_set('reminder_days_treshold'		, $f_reminder_days_treshold);			
@@ -43,6 +44,7 @@ plugin_config_set('reminder_feedback_status'	, $f_reminder_feedback_status);
 plugin_config_set('reminder_login'				, $f_reminder_login);	
 plugin_config_set('reminder_subject'			, $f_reminder_subject);	
 plugin_config_set('reminder_finished'			, $f_reminder_finished);	
+plugin_config_set('reminder_hours'				, $f_reminder_hours);				
 
 
 print_successful_redirect( plugin_page( 'config',TRUE ) );
