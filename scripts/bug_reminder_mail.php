@@ -33,7 +33,7 @@ $t_rem_body1	= config_get( 'plugin_Reminder_reminder_group_body1' );
 $t_rem_body2	= config_get( 'plugin_Reminder_reminder_group_body2' );
 
 $t_rem_hours	= config_get('plugin_Reminder_reminder_hours');
-if (ON == $t_rem_hours){
+if (ON != $t_rem_hours){
 	$multiply=24;
 } else{
 	$multiply=1;
@@ -44,10 +44,10 @@ if (ON == $t_rem_hours){
 // this needs to be made flexible
 // we will only produce overview for those projects that have a separate manager
 //
-$baseline	= time(true)+ ($t_rem_days*$multipy*60*60);
+$baseline	= time(true)+ ($t_rem_days*$multiply*60*60);
 $basenow	= time(true);
 if ( ON == $t_rem_handler ) {
-	$query = "select id,handler_id,project_id from $t_bug_table where status=$t_rem_status and due_date<=$baseline and handler_id<>0 ";
+	$query = "select id,handler_id,project_id from $t_bug_table where status in (".implode(",", $t_rem_status).") and due_date<=$baseline and handler_id<>0 ";
 	if ( ON == $t_rem_ign_past ) {
 			$query .=" and due_date>=$basenow" ;
 	} else{
@@ -137,7 +137,7 @@ if ( ON == $t_rem_handler ) {
 
 if ( ON == $t_rem_manager ) {
 	// select relevant issues in combination with an assigned manager to the project
-	$query  = "select id,handler_id,user_id from $t_bug_table,$t_man_table where status=$t_rem_status and due_date<=$baseline ";
+	$query  = "select id,handler_id,user_id from $t_bug_table,$t_man_table where status in (".implode(",", $t_rem_status).") and due_date<=$baseline ";
 	if ( ON == $t_rem_ign_past ) {
 			$query .=" and due_date>=$basenow" ;
 	} else{

@@ -4,6 +4,59 @@ access_ensure_global_level( config_get( 'manage_plugin_threshold' ) );
 html_page_top1( lang_get( 'reminder_plugin_title' ) );
 html_page_top2();
 print_manage_menu();
+
+function reminder_check_selected( $p_var, $p_val = true ) {
+	if( is_array( $p_var ) ) {
+		foreach( $p_var as $t_this_var ) {
+
+			# catch the case where one entry is 0 and the other is a string.
+			if( is_string( $t_this_var ) && is_string( $p_val ) ) {
+				if( $t_this_var === $p_val ) {
+					echo ' selected="selected" ';
+					return;
+				}
+			}
+			else if ( is_array( $p_val ) ) {
+			     	foreach( $p_val as $t_this_val ) {
+					if( $t_this_var == $t_this_val ) {
+					        echo ' selected="selected" ';
+						return;
+					}
+				}
+			}
+			else if( $t_this_var == $p_val ) {
+				echo ' selected="selected" ';
+				return;
+			}
+		}
+	} else {
+		if( is_string( $p_var ) && is_string( $p_val ) ) {
+			if( $p_var === $p_val ) {
+				echo ' selected="selected" ';
+				return;
+			}
+		}
+		else if( $p_var == $p_val ) {
+			echo ' selected="selected" ';
+			return;
+		}
+	}
+}
+
+function reminder_print_status_option_list( $p_name ) {
+	$t_enum_values = MantisEnum::getValues( config_get( 'status_enum_string' ) );
+	$t_selection = plugin_config_get($p_name);
+	echo '<select name="' . $p_name . '[]" multiple="multiple" size="' . count($t_enum_values) . '">';
+	foreach ( $t_enum_values as $t_key ) {
+		$t_elem2 = get_enum_element( 'status', $t_key );
+
+		echo '<option value="' . $t_key . '"';
+		reminder_check_selected( $t_selection, $t_key );
+		echo '>' . $t_elem2 . '</option>';
+	}
+	echo '</select>';
+}
+
 ?>
 <br/>
 <form action="<?php echo plugin_page( 'config_edit' ) ?>" method="post">
@@ -74,7 +127,7 @@ print_manage_menu();
 		<?php echo lang_get( 'reminder_bug_status' ) ?>
 	</td>
 	<td width="20%">
-	<?php print_status_option_list( 'reminder_bug_status',plugin_config_get( 'reminder_bug_status' ) ) ?>
+	<?php reminder_print_status_option_list('reminder_bug_status') ?>
 	</td><td>
 	</td> 
 	</td>
@@ -234,7 +287,7 @@ print_manage_menu();
 		<?php echo lang_get( 'reminder_feedback_status' ) ?>
 	</td>
 	<td width="20%">
-	<?php print_status_option_list( 'reminder_feedback_status',plugin_config_get( 'reminder_feedback_status' ) ) ?>
+	<?php reminder_print_status_option_list('reminder_feedback_status')?>
 	</td><td>
 	</td> 
 	</td>
