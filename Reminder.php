@@ -3,12 +3,12 @@ class ReminderPlugin extends MantisPlugin {
 	function register() {
 		$this->name        = 'Reminder';
 		$this->description = lang_get( 'reminder_plugin_desc' );
-		$this->version     = '1.20';
+		$this->version     = '1.22';
 		$this->requires    = array('MantisCore'       => '1.2.0',);
 		$this->author      = 'Cas Nuy';
 		$this->contact     = 'Cas-at-nuy.info';
 		$this->url         = 'http://www.nuy.info';
-		$this->page			= 'config';
+		$this->page			   = 'config';
 	}
 
  	/*** Default plugin configuration.	 */
@@ -17,7 +17,7 @@ class ReminderPlugin extends MantisPlugin {
 			'reminder_mail_subject'			=> 'Following issue will be Due shortly' ,
 			'reminder_days_treshold'		=> 2,
 			'reminder_store_as_note'		=> OFF,
-			'reminder_sender'				=> 'Admin@nuy.info',
+			'reminder_sender'				=> 'admin@example.com',
 			'reminder_bug_status'			=> ASSIGNED,
 			'reminder_ignore_unset'			=> ON,
 			'reminder_ignore_past'			=> ON,
@@ -35,6 +35,7 @@ class ReminderPlugin extends MantisPlugin {
 			'reminder_subject'				=> 'Issues requiring your attention',
 			'reminder_finished'				=> 'Finished processing your selection',
 			'reminder_hours'				=> OFF,
+      'reminder_colsep'				=> ';',			
 			);
 	}
 	

@@ -267,7 +267,12 @@ function reminder_print_status_option_list( $p_name ) {
 <tr></tr>
 
 <tr <?php echo helper_alternate_class() ?> >
-	<td class="category" width="60%">
+	<td class="form-title" colspan="3">
+	<?php echo lang_get( 'reminder_feedback_email' ) ?>  
+	</td>
+</tr>	
+<tr <?php echo helper_alternate_class() ?> >	
+  <td class="category" width="60%">
 		<?php echo lang_get( 'reminder_feedback_project_name' ) ?>
 	</td>
 	<td width="20%">
@@ -321,6 +326,22 @@ function reminder_print_status_option_list( $p_name ) {
 			<input type="text" name="reminder_finished" size="50" maxlength="50" value="<?php echo plugin_config_get( 'reminder_finished' )?>" >
 	</td><td></td>
 </tr>
+
+<tr <?php echo helper_alternate_class() ?> >
+	<td class="form-title" colspan="3">
+	<?php echo lang_get( 'reminder_export_settings' ) ?>  
+	</td>
+</tr>
+<tr <?php echo helper_alternate_class() ?>>
+	<td class="category" width="60%">
+		<?php echo lang_get( 'reminder_export_colsep' ) ?>
+	</td>
+	<td  width="20%">
+			<input type="text" name="reminder_colsep" size="50" maxlength="1" value="<?php echo plugin_config_get( 'reminder_colsep' )?>" >
+	</td><td></td>
+</tr>
+
+
 <tr>
 	<td class="center" colspan="3">
 		<input type="submit" class="button" value="<?php echo lang_get( 'reminder_update_config' ) ?>" />
