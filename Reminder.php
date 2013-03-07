@@ -18,7 +18,7 @@ class ReminderPlugin extends MantisPlugin {
 			'reminder_days_treshold'		=> 2,
 			'reminder_store_as_note'		=> OFF,
 			'reminder_sender'				=> 'admin@example.com',
-			'reminder_bug_status'			=> ASSIGNED,
+			'reminder_bug_status'			=> array(ASSIGNED),
 			'reminder_ignore_unset'			=> ON,
 			'reminder_ignore_past'			=> ON,
 			'reminder_handler'				=> ON,
