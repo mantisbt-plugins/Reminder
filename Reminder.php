@@ -31,7 +31,7 @@ class ReminderPlugin extends MantisPlugin {
 			'reminder_project_id'			=> 0,
 			'reminder_login'				=> 'admin',
 			'reminder_feedback_project'		=> 0,
-			'reminder_feedback_status'		=> 20,
+			'reminder_feedback_status'		=> array(FEEDBACK),
 			'reminder_subject'				=> 'Issues requiring your attention',
 			'reminder_finished'				=> 'Finished processing your selection',
 			'reminder_hours'				=> OFF,

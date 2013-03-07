@@ -7,7 +7,7 @@ if( php_sapi_name() != 'cli' ) {
 # This page sends an E-mail to the REPORTER if an issue is awaiting feedback
 #
 
-require_once( '../../../core.php' );
+require_once( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . DIRECTORY_SEPARATOR . 'core.php' );
 $t_login	= config_get( 'plugin_Reminder_reminder_login' );
 
 //echo "tlogion: ".$t_login."\n";
