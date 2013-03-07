@@ -1,0 +1,54 @@
+Version |Date      |Name       |Message
+----------------------------------------------------------------------------------------------------------
+0.91     23-02-2009		Initial version
+
+1.0	 16-03-2009		Bugfixes
+				Added bonus program 
+
+1.03 	 22-04-2009		Bugfixes
+				Added program to request feedback from users
+
+1.04	 23-04-2010		Bugfixes
+
+1.05	 23-04-2010		Bugfixes
+				Adjusted lay-out of emails
+
+1.06	 26-04-2010		Bugfixes
+				Adjusted authorisations when scheduled
+
+1.07	 26-04-2010		Bugfixes
+				Corrected the scheduling facilities
+
+1.08	 27-04-2010		Bugfixes
+				Added a test script to facilitate local verifying
+
+1.09	 28-04-2010		Bugfixes
+				Added results screen when ran from within browser
+
+1.10	 29-04-2010		Bugfixes
+				All fields translatable
+				Compatible with 1.2.1
+
+1.11	 07-05-2010		Added German translation ( thanks to Mark Ziegler)	
+				Converted all mysql_query calls to mantis api calls
+
+1.12	 08-02-2011		Protected 2 scripts to be ran from within the browser.
+				bug_feedback_mail.php & bug_reminder_mail.php
+
+1.20	 21-03-2011 cas		Added the option to use hours instead of days
+
+1.21	 28-06-2012 johmart	Hours/days setting was mixed up.
+                                Introduced Multiple Status selection
+                                French translation aded
+
+1.22     20-08-2012 funta222    Fixed Changelog, added missing 1.21 changes
+                                Fixed broken multi status intoduced in 1.21
+                                Fixed test scripts 
+                                Feedback Reminder Email receipient now defaults to Reporter. Rename scripts\bug_feedback_mail_handler.php to get old handler bahavior                                      
+                                Fixed Excel2010 warning abput wrong file typ: Csv vs. Xls
+                                Introduced setting for character used as Csv column sparator (defaults to ; now)
+
+xxx		2013-03-07	samwilson	Moved to Github for easier collaboration.
+								Fixed paths in mailing scripts, so they can be called from anywhere.
+								Added assigned_bugs.php mailing script, to email assignees of open bugs.
+								Updated READMEs.
