@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $s_reminder_plugin_title 			= "Erinnerungs-Emails von Mantis" ;
 $s_reminder_config 					= "Einstellungen" ;
 $s_reminder_bug_status				= "Nur Einträge mit folgendem Status auswählen" ;
