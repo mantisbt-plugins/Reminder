@@ -1,7 +1,7 @@
 <?php
 /**
  * This script sends reminder emails to assignees of all open bugs.
- * 
+ *
  * @category Reminder plugin
  * @since 1.23
  * @license http://www.gnu.org/licenses/gpl.html GPL
@@ -25,12 +25,12 @@ require_once( $t_core_path.'email_api.php' );
 $t_bug_table = db_get_table( 'mantis_bug_table' );
 $t_user_table = db_get_table( 'mantis_user_table' );
 $query = "SELECT DISTINCT b.id bug_id, b.summary, b.handler_id, u.realname, u.email "
-    ." FROM $t_bug_table b JOIN $t_user_table u ON (b.handler_id = u.id) "
-    ." WHERE status = ".ASSIGNED." ";
+	." FROM $t_bug_table b JOIN $t_user_table u ON (b.handler_id = u.id) "
+	." WHERE status = ".ASSIGNED." ";
 $results = db_query_bound( $query );
 if ( ! $results) {
-    echo 'Query failed.';
-    exit( 1 );
+	echo 'Query failed.';
+	exit( 1 );
 }
 
 # Loop through all assigned bugs, building a list of what to email
@@ -47,7 +47,7 @@ while ($row = db_fetch_array($results)) {
 			'bugs' => array(),
 		);
 	}
-	
+
 	# Add current bug to this recipient's list
 	$emails[$row['handler_id']]['bugs'][$row['bug_id']] = $row['summary'];
 

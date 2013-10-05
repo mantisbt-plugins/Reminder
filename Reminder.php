@@ -1,5 +1,6 @@
 <?php
 class ReminderPlugin extends MantisPlugin {
+
 	function register() {
 		$this->name        = 'Reminder';
 		$this->description = lang_get( 'reminder_plugin_desc' );
@@ -8,10 +9,10 @@ class ReminderPlugin extends MantisPlugin {
 		$this->author      = 'Cas Nuy';
 		$this->contact     = 'Cas-at-nuy.info';
 		$this->url         = 'http://www.nuy.info';
-		$this->page			   = 'config';
+		$this->page        = 'config';
 	}
 
- 	/*** Default plugin configuration.	 */
+	/*** Default plugin configuration.	 */
 	function config() {
 		return array(
 			'reminder_mail_subject'			=> 'Following issue will be Due shortly' ,
@@ -35,16 +36,16 @@ class ReminderPlugin extends MantisPlugin {
 			'reminder_subject'				=> 'Issues requiring your attention',
 			'reminder_finished'				=> 'Finished processing your selection',
 			'reminder_hours'				=> OFF,
-      'reminder_colsep'				=> ';',			
+			'reminder_colsep'				=> ';',
 			);
 	}
-	
-	function init() { 
+
+	function init() {
 		plugin_event_hook( 'EVENT_MENU_MANAGE', 'remdown' );
 	}
 
 	function remdown() {
 		return array('<a href="'. plugin_page( 'bug_due_overview.php' ) . '">' . lang_get( 'reminder_download' ) . '</a>' );
-    }
+	}
 
 }

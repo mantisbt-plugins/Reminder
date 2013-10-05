@@ -1,5 +1,5 @@
 <?php
-# Make sure this script doesn't run via the webserver  
+# Make sure this script doesn't run via the webserver
 
 # This page sends an E-mail to the REPORTER if an issue is awaiting feedback
 # No real email is sent not are notes created for the various issues
@@ -15,7 +15,7 @@ $ok=auth_attempt_script_login( $t_login );
 
 //if ($ok) echo "ok=true\n";
 //else echo "ok=false\n";
- 
+
 $t_core_path = config_get( 'core_path' );
 ///require_once( $t_core_path.'bug_api.php' );
 require_once( $t_core_path.'email_api.php' );
@@ -47,9 +47,9 @@ if ($results){
 		$handler	= $row1['handler_id'];
 		$project  = $row1['project_id'];
 		$reporter = $row1['reporter_id'];
-		
+
     echo "id: ".$id." handler_id: ".$handler." reporter_id:".$reporter." project_id: ".$project."\n<br>";
-		
+
     if ($start){
 			//$handler2 = $handler ;
 			$reporter2 = $reporter ;
@@ -57,9 +57,9 @@ if ($results){
 		}
 		//if ($handler== $handler2){
 		if ($reporter== $reporter2){
-			$list .=" \n\n"; 
+			$list .=" \n\n";
 			//$list .= string_get_bug_view_url_with_fqdn( $id, $handler2 );
-			$list .= string_get_bug_view_url_with_fqdn( $id, $reporter2 );			
+			$list .= string_get_bug_view_url_with_fqdn( $id, $reporter2 );
 		} else {
 			// now send the grouped email
 			$body  = $t_rem_body1. " <br><br>\n\n";
@@ -67,10 +67,10 @@ if ($results){
 			$body .= $t_rem_body2;
 			//$result = email_group_reminder( $handler2, $body);
 			$result = email_group_reminder( $reporter2, $body);
-			
+
 			//$handler2 = $handler ;
 			$reporter2 = $reporter;
-			
+
 			//$list= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 			$list= string_get_bug_view_url_with_fqdn( $id, $reporter2 );
 		}
@@ -88,8 +88,8 @@ if ($results){
   		echo 'Query-Manager had no results '.$query ;
 	  	echo '<br>';
 	}
-	
-} 
+
+}
 if (php_sapi_name() !== 'cli'){
 	echo config_get( 'plugin_Reminder_reminder_finished' );
 }
@@ -100,18 +100,18 @@ function email_group_reminder( $p_user_id, $issues ) {
 	$t_email = user_get_email( $p_user_id );
 	$t_message = $issues ;
 	$t_subject	= config_get( 'plugin_Reminder_reminder_subject' );
-	
+
   if( !is_blank( $t_email ) ) {
-		
-    echo '------------------------------- <br>';
-    echo $t_email;
+
+	echo '------------------------------- <br>';
+	echo $t_email;
 		echo '**';
 		echo $t_subject;
 		echo '<br>';
 		echo $t_message;
 		echo '<br>';
 		echo '------------------------------- <br>';
-	
+
 		// email_store( $t_email, $t_subject, $t_message );
 		if( OFF == config_get( 'email_send_using_cronjob' ) ) {
 				// email_send_all();

@@ -3,7 +3,7 @@
 # No real email is sent not are notes crreated for the various issues
 require_once( '../../../core.php' );
 $t_login	= config_get( 'plugin_Reminder_reminder_login' );
-$ok=auth_attempt_script_login( $t_login ); 
+$ok=auth_attempt_script_login( $t_login );
 $t_core_path = config_get( 'core_path' );
 require_once( $t_core_path.'bug_api.php' );
 require_once( $t_core_path.'email_api.php' );
@@ -19,7 +19,7 @@ $t_rem_body		= config_get( 'plugin_Reminder_reminder_mail_subject' );
 $t_rem_store	= config_get( 'plugin_Reminder_reminder_store_as_note' );
 $t_rem_ignore	= config_get( 'plugin_Reminder_reminder_ignore_unset' );
 $t_rem_ign_past	= config_get( 'plugin_Reminder_reminder_ignore_past' );
-$t_rem_handler 	= config_get( 'plugin_Reminder_reminder_handler' );
+$t_rem_handler	= config_get( 'plugin_Reminder_reminder_handler' );
 $t_rem_group1	= config_get( 'plugin_Reminder_reminder_group_issues' );
 $t_rem_group2	= config_get( 'plugin_Reminder_reminder_group_project' );
 $t_rem_manager	= config_get( 'plugin_Reminder_reminder_manager_overview' );
@@ -117,7 +117,7 @@ if ( ON == $t_rem_handler ) {
 					$start = false ;
 				}
 				if ($handler==$handler2){
-					$list .="<br>"; 
+					$list .="<br>";
 					$list .= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
@@ -133,7 +133,7 @@ if ( ON == $t_rem_handler ) {
 					$body .= $t_rem_body2;
 					$result = email_group_reminder( $handler2, $body);
 					$handler2 = $handler ;
-					$list ="<br>"; 
+					$list ="<br>";
 					$list= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
@@ -151,7 +151,7 @@ if ( ON == $t_rem_handler ) {
 				$body .= "<br>";
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $handler2, $body);
-			
+
 			} else{
 				echo 'Query-Handler had no results '.$query ;
 				echo '<br>';
@@ -206,7 +206,7 @@ if ( ON == $t_rem_manager ) {
 				$start = false ;
 			}
 			if ($manager==$man2){
-				$list .=" \n\n"; 
+				$list .=" \n\n";
 				$list .= string_get_bug_view_url_with_fqdn( $id, $man2 );
 			} else {
 				// now send the grouped email
@@ -216,7 +216,7 @@ if ( ON == $t_rem_manager ) {
 				$result = email_group_reminder( $man2, $body);
 				$man2 = $manager ;
 				$list= string_get_bug_view_url_with_fqdn( $id, $man2 );
-				$list .= " \n\n";					
+				$list .= " \n\n";
 			}
 		}
 		// handle last one
@@ -226,7 +226,7 @@ if ( ON == $t_rem_manager ) {
 			$body .= $list. " \n\n";
 			$body .= $t_rem_body2;
 			$result = email_group_reminder( $man2, $body);
-		
+
 		}else{
 				echo 'Query-Manager had no results '.$query ;
 				echo '<br>';
