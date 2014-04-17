@@ -2,7 +2,7 @@
 # Make sure this script doesn't run via the webserver  
 if( php_sapi_name() != 'cli' ) {  
 	echo "It is not allowed to run this script through the webserver.\n";  
-	exit( 1 );  
+	exit( 1 );
 }  
 # This page sends an E-mail if a due date is getting near
 # includes all due_dates not met
@@ -13,8 +13,12 @@ $t_core_path = config_get( 'core_path' );
 require_once( $t_core_path.'bug_api.php' );
 require_once( $t_core_path.'email_api.php' );
 require_once( $t_core_path.'bugnote_api.php' );
+require_once( $t_core_path.'category_api.php' );
+require_once( $t_core_path.'helper_api.php' );
+
 $allok= true ;
 $t_bug_table	= db_get_table( 'mantis_bug_table' );
+$t_bug_text_table = db_get_table( 'mantis_bug_text_table' );
 $t_man_table	= db_get_table( 'mantis_project_user_list_table' );
 
 $t_rem_project	= config_get( 'plugin_Reminder_reminder_project_id' );
@@ -47,7 +51,7 @@ if (ON != $t_rem_hours){
 $baseline	= time(true)+ ($t_rem_days*$multiply*60*60);
 $basenow	= time(true);
 if ( ON == $t_rem_handler ) {
-	$query = "select id,handler_id,project_id from $t_bug_table where status in (".implode(",", $t_rem_status).") and due_date<=$baseline and handler_id<>0 ";
+	$query = "select bugs.id, bugs.handler_id, bugs.project_id, bugs.priority, bugs.category_id, bugs.status, bugs.severity, bugs.summary from $t_bug_table bugs JOIN $t_bug_text_table text ON (bugs.bug_text_id = text.id) where status in (".implode(",", $t_rem_status).") and due_date<=$baseline and handler_id<>0 ";
 	if ( ON == $t_rem_ign_past ) {
 			$query .=" and due_date>=$basenow" ;
 	} else{
@@ -98,8 +102,7 @@ if ( ON == $t_rem_handler ) {
 					$start = false ;
 				}
 				if ($handler==$handler2){
-					$list .=" \n\n"; 
-					$list .= string_get_bug_view_url_with_fqdn( $id, $handler2 );
+                    $list .= formatBugEntry($row1);
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
 						$t_attr = '|'.$handler2.'|';
@@ -112,8 +115,7 @@ if ( ON == $t_rem_handler ) {
 					$body .= $t_rem_body2;
 					$result = email_group_reminder( $handler2, $body);
 					$handler2 = $handler ;
-					$list =" \n\n"; 
-					$list= string_get_bug_view_url_with_fqdn( $id, $handler2 );
+                    $list = formatBugEntry($row1);
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
 						$t_attr = '|'.$handler2.'|';
@@ -206,4 +208,38 @@ function email_group_reminder( $p_user_id, $issues ) {
 			email_send_all();
 		}
 	}
+}
+
+function formatBugEntry($data){
+    lang_push( user_pref_get_language( $data['handler_id'] ) );
+
+    $p_visible_bug_data = $data;
+    $p_visible_bug_data['email_project'] = project_get_name( $data['project_id']);
+    $p_visible_bug_data['email_category'] = category_get_name($data['category_id']);
+
+    $t_email_separator1 = config_get( 'email_separator1' );
+    $t_email_separator2 = config_get( 'email_separator2' );
+
+    $p_visible_bug_data['email_bug'] = $data['id'];
+    $p_visible_bug_data['email_status'] = get_enum_element( 'status', $p_visible_bug_data['status'], $data['handler_id'], $data['project_id'] );
+    $p_visible_bug_data['email_severity'] = get_enum_element( 'severity', $p_visible_bug_data['severity'] );
+    $p_visible_bug_data['email_priority'] = get_enum_element( 'priority', $p_visible_bug_data['priority'] );
+    $p_visible_bug_data['email_reproducibility'] = get_enum_element( 'reproducibility', $p_visible_bug_data['reproducibility'] );
+    $p_visible_bug_data['email_summary'] = $data['summary'];
+
+    $t_message = $t_email_separator1 . " \n";
+    $t_message .= string_get_bug_view_url_with_fqdn( $data['id'], $data['handler_id'] ) . " \n";
+    $t_message .= $t_email_separator1 . " \n";
+
+    $t_message .= email_format_attribute( $p_visible_bug_data, 'email_project' );
+    $t_message .= email_format_attribute( $p_visible_bug_data, 'email_bug' );
+    $t_message .= email_format_attribute( $p_visible_bug_data, 'email_category' );
+    $t_message .= email_format_attribute( $p_visible_bug_data, 'email_priority' );
+    $t_message .= email_format_attribute( $p_visible_bug_data, 'email_status' );
+    $t_message .= $t_email_separator1 . " \n";
+
+    $t_message .= email_format_attribute( $p_visible_bug_data, 'email_summary' );
+    $t_message .= $t_email_separator1 . " \n\n\n";
+
+    return $t_message;
 }
