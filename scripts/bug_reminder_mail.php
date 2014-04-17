@@ -2,7 +2,7 @@
 # Make sure this script doesn't run via the webserver  
 if( php_sapi_name() != 'cli' ) {  
 	echo "It is not allowed to run this script through the webserver.\n";  
-	//exit( 1 );
+	exit( 1 );
 }  
 # This page sends an E-mail if a due date is getting near
 # includes all due_dates not met
