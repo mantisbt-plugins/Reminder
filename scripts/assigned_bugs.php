@@ -24,10 +24,11 @@ require_once( $t_core_path.'email_api.php' );
 # Build and bind query
 $t_bug_table = db_get_table( 'mantis_bug_table' );
 $t_user_table = db_get_table( 'mantis_user_table' );
+$t_resolved = config_get( 'bug_resolved_status_threshold' );
 $query = "SELECT DISTINCT b.id bug_id, b.summary, b.handler_id, u.realname, u.email "
 	." FROM $t_bug_table b JOIN $t_user_table u ON (b.handler_id = u.id) "
-	." WHERE status = ".ASSIGNED." ";
-$results = db_query_bound( $query );
+	." WHERE status != ".db_param();
+$results = db_query_bound( $query, array($t_resolved) );
 if ( ! $results) {
 	echo 'Query failed.';
 	exit( 1 );
