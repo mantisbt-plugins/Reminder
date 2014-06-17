@@ -5,13 +5,15 @@
 This plugin can be used to send periodic email reminders to bug reporters,
 managers, and assignees.
 
-The files in the plugins/Reminder/scripts directory should be run directly,
+The files in the `plugins/Reminder/scripts` directory should be run directly,
 from the command line.
 
-bug_feedback_mail.php sends emails to reporters listing all bugs awaiting
-their feedback. bug_reminder_mail.php sends emails to assignees when bugs
-are approaching their due date. assigned_bugs.php sends emails to assignees
-listing all bugs assigned to them.
+1. `bug_feedback_mail.php` sends emails to reporters listing all bugs awaiting
+   their feedback.
+2. `bug_reminder_mail.php` sends emails to assignees when bugs are approaching
+   their due date.
+3. `assigned_bugs.php` sends emails to assignees listing all open bugs that are
+   assigned to them.
 
 This plugin is build upon version 1.2.x of mantis and should be installed as
 any other plugin. No Mantis scripts or tables are being altered.
