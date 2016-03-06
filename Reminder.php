@@ -5,7 +5,7 @@ class ReminderPlugin extends MantisPlugin {
 		$this->name        = 'Reminder';
 		$this->description = lang_get( 'reminder_plugin_desc' );
 		$this->version     = '1.22';
-		$this->requires    = array('MantisCore'       => '1.2.0',);
+		$this->requires    = array('MantisCore'       => '1.3.0',);
 		$this->author      = 'Cas Nuy';
 		$this->contact     = 'Cas-at-nuy.info';
 		$this->url         = 'http://www.nuy.info';
