@@ -29,8 +29,8 @@ $status			= config_get('plugin_Reminder_reminder_feedback_status');
 $t_rem_body1	= config_get( 'plugin_Reminder_reminder_group_body1' );
 $t_rem_body2	= config_get( 'plugin_Reminder_reminder_group_body2' );
 
-if ($project>0){
-	$query = "select id,reporter_id,handler_id,project_id from $t_bug_table where status in (".implode(",", $status).") and project_id=$project order by reporter_id";
+if ($t_project>0){
+	$query = "select id,reporter_id,handler_id,project_id from $t_bug_table where status in (".implode(",", $status).") and project_id=$t_project order by reporter_id";
 } else{
 	$query = "select id,reporter_id,handler_id,project_id from $t_bug_table where status in (".implode(",", $status).") order by reporter_id";
 }
