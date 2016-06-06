@@ -52,3 +52,6 @@ xxx		2013-03-07	samwilson	Moved to Github for easier collaboration.
 								Fixed paths in mailing scripts, so they can be called from anywhere.
 								Added assigned_bugs.php mailing script, to email assignees of open bugs.
 								Updated READMEs.
+
+xxx		06-06-2016	webmaniak	Added the unique reminder scripts which sends a reminder only once the
+								due date is x days/hours before the due date, where x is a parameter
