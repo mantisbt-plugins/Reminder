@@ -52,7 +52,7 @@ reminder_groupbody1	= "Please review the following issues";
 reminder_groupbody2	= "Please do not reply to this message";
 
 // perform for which project
-reminder_project_id = 0; means ALL
+reminder_project_id = 0; // 0 means ALL
 
 // how many days before Due date should we take into account
 reminder_days_treshold  = 2;
@@ -65,38 +65,38 @@ reminder_store_as_note = OFF;
 // only possible for handler
 
 // For which status to send reminders
-reminder_bug_status = ASSIGNED
+reminder_bug_status = array(ASSIGNED);
 
 // Ignore reminders for issues with no Due date set
-reminder_ignore_unset = ON
+reminder_ignore_unset = ON;
 
 // Ignore reminders for issues with Due dates in the past
-reminder_ign_past = ON
+reminder_ignore_past = ON;
 
 // only valid for the mail function, downloads will always have duedates that have gone by
 
 // Create overview per handler
-reminder_handler = ON
+reminder_handler = ON;
 
 // Group issues by Handler
-reminder_group_issues = ON
+reminder_group_issues = ON;
 
 // Group issues by project/handler
-reminder_group_project = OFF
+reminder_group_project = OFF;
 
 // Create overview per manager/project
-reminder_manager_overview = ON
+reminder_manager_overview = ON;
 //
-// access level for manager= 70
+// access level for manager = 70
 // this needs to be made flexible
 // we will only produce overview for those projects that have a separate manager
 //
 
 // Select project to receive Feedback mail
-reminder_feedback_project = 0; means ALL
+reminder_feedback_project = 0; // 0 means ALL
 
 // For which status to send feedbackreminders
-reminder_bug_status = FEEDBACK
+reminder_bug_status = array(FEEDBACK);
 
 
 ********************************************************************************
@@ -108,8 +108,10 @@ After this, bug_reminder_mail can be used via cron like this:
 
 or via command line interface
 */1440 *   *   *   * /usr/local/bin/php /path/to/mantis/plugins/Reminder/scripts/bug_reminder_mail.php
+This line would send out a reminder every day until the due date.
 
-This line would send out a reminder every day.
+You can also decide to run the script every day at 7a.m. and send a reminder only if it's near the due date (see parameter reminder_days_treshold for nb of days/hours):
+0 7 * * * /usr/local/bin/php /path/to/mantis/plugins/Reminder/scripts/bug_reminder_unique_mail.php
 
 You also can use a scheduled task under windows by calling a batch-file like:
 
@@ -136,9 +138,12 @@ http://www.YourMantisHome.com/plugins/Reminder/scripts/bug_due_overview2.php?day
 If you do not apply parameters, the script will default to the above.
 
 In the script directory you will also find a script called
-bug_reminder_mail_test.php This script which you should call from within the
+bug_reminder_mail_test.php. This script which you should call from within the
 browser (once logged on) will provide useful feedback if things are not
 working as expected. In case of a blank screen, all is processed normally.
+
+You can also use the test script named bug_reminder_unique_mail_test.php to test
+the unique reminder feature.
 
 For option Days/Hours, the script will fetch the plugin definition.
 
