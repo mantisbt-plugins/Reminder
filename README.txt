@@ -12,11 +12,13 @@ from the command line.
    their feedback.
 2. `bug_reminder_mail.php` sends emails to assignees when bugs are approaching
    their due date.
-3. `assigned_bugs.php` sends emails to assignees listing all open bugs that are
+3. `bug_reminder_unique_mail.php` do the same as script n°2 but only when the
+   due date is the exact planned day (see parameter reminder_days_treshold)
+4. `assigned_bugs.php` sends emails to assignees listing all open bugs that are
    assigned to them.
 
-This plugin is build upon version 1.2.x of mantis and should be installed as
-any other plugin. No Mantis scripts or tables are being altered.
+This plugin is build upon version 1.2.x of mantis and should be installed like
+any other plugin. No Mantis scripts or tables are being create/altered.
 
 
 ********************************************************************************
@@ -25,13 +27,13 @@ any other plugin. No Mantis scripts or tables are being altered.
 
 Like any other plugin.
 After copying to your webserver :
-- Start mantis ad administrator
+- Start mantis as administrator
 - Select manage
 - Select manage Plugins
-- Select Install behind Reminder 1.10
-- Once installed, click on the plugin-name for further configuration.
+- Select Install near "Reminder 1.xx" (where 1.xx is the version no)
+- Once installed, click on the plugin name for further configuration.
 
-For version 1.2.1 make sure to have this statement in confg_inc.php:
+For version 1.2.x make sure to have this statement in confg_inc.php:
 $g_path          = 'http://path to your mantis installation/';
 
 
@@ -103,14 +105,16 @@ reminder_bug_status = array(FEEDBACK);
 * Automatically generating mail                                                *
 ********************************************************************************
 
-After this, bug_reminder_mail can be used via cron like this:
+The bug_reminder_mail script can be called via cron like this (using Lynx):
 */1440 *   *   *   * lynx --dump http://mantis.homepage.com/plugins/Reminder/scripts/bug_reminder_mail.php
 
-or via command line interface
+or via command line interface (recommanded):
 */1440 *   *   *   * /usr/local/bin/php /path/to/mantis/plugins/Reminder/scripts/bug_reminder_mail.php
+
 This line would send out a reminder every day until the due date.
 
-You can also decide to run the script every day at 7a.m. and send a reminder only if it's near the due date (see parameter reminder_days_treshold for nb of days/hours):
+You can also decide to run the script every day at 7a.m. and send a reminder only
+if it's near the due date (see parameter reminder_days_treshold for nb of days/hours):
 0 7 * * * /usr/local/bin/php /path/to/mantis/plugins/Reminder/scripts/bug_reminder_unique_mail.php
 
 You also can use a scheduled task under windows by calling a batch-file like:
@@ -119,7 +123,6 @@ REM *** this batch is running as a scheduled task under the ... Account ***
 g:
 cd \inetpub\wwwroot\mantis
 php.exe plugins/Reminder/scripts/bug_reminder_mail.php
-
 
 One can also schedule a job to prompt reporters to respond because their
 issue has status Feedback. In that case replace bug_reminder_mail.php with
