@@ -6,7 +6,7 @@ Released under the [GPL 2.0](http://opensource.org/licenses/GPL-2.0)
 
 ## Description
 
-This plugin can be used to send  periodic email reminders to bug reporters, 
+This plugin can be used to send  periodic email reminders to bug reporters,
 managers, and assignees.
 
 The files in the `plugins/Reminder/scripts` directory should be run directly,
@@ -22,9 +22,9 @@ from the command line.
 
 ## Requirements
 
-The plugin requires MantisBT version 1.2.0 or higher.
+The plugin requires MantisBT version 1.3.0 or higher.
 
-For version 1.2.1 make sure to have this statement in confg_inc.php:
+Make sure to have this statement in confg_inc.php:
 ```
 $g_path = 'http://path-to-your-mantis-installation/';
 ```
@@ -166,7 +166,7 @@ For option Days/Hours, the script will fetch the plugin definition.
 
 ## Support
 
-Log new issues against the [Plugin - Reminder] project on 
+Log new issues against the [Plugin - Reminder] project on
 [mantisbt.org's tracker](http://www.mantisbt.org/bugs/view_all_bug_page.php?project_id=7).
 
 Main issue: http://www.mantisbt.org/bugs/view.php?id=10153
