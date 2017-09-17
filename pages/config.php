@@ -1,8 +1,8 @@
 <?php
 auth_reauthenticate();
 access_ensure_global_level( config_get( 'manage_plugin_threshold' ) );
-html_page_top1( lang_get( 'reminder_plugin_title' ) );
-html_page_top2();
+layout_page_header( lang_get( 'reminder_plugin_title' ) );
+layout_page_begin( 'config_page.php' );
 print_manage_menu();
 
 function reminder_check_selected( $p_var, $p_val = true ) {
@@ -58,15 +58,22 @@ function reminder_print_status_option_list( $p_name ) {
 }
 
 ?>
+<div class="col-md-12 col-xs-12">
+<div class="space-10"></div>
+<div class="form-container" > 
 <br/>
 <form action="<?php echo plugin_page( 'config_edit' ) ?>" method="post">
-<table align="center" class="width75" cellspacing="1">
-<tr>
-	<td class="form-title" colspan="3">
-		<?php echo lang_get( 'reminder_plugin_title' ) . ': ' . lang_get( 'reminder_config' ) ?>
-	</td>
-</tr>
-
+<div class="widget-box widget-color-blue2">
+<div class="widget-header widget-header-small">
+	<h4 class="widget-title lighter">
+		<i class="ace-icon fa fa-text-width"></i>
+		<?php echo lang_get( 'reminder_plugin_title' ) . ': ' . lang_get( 'plugin_format_config' )?>
+	</h4>
+</div>
+<div class="widget-body">
+<div class="widget-main no-padding">
+<div class="table-responsive"> 
+<table class="table table-bordered table-condensed table-striped"> 
 <tr <?php echo helper_alternate_class() ?>>
 	<td class="category" width="60%">
 		<?php echo lang_get( 'reminder_mail_subject' ) ?>
@@ -106,20 +113,28 @@ function reminder_print_status_option_list( $p_name ) {
 	</td>
 </tr>
 
+<tr <?php echo helper_alternate_class() ?>>
+	<td class="category" width="60%">
+		<?php echo lang_get( 'reminder_include' ) ?>
+	</td>
+	<td class="right" width="20%">
+		<label><input type="radio" name="reminder_include" value="1" <?php echo ( ON == plugin_config_get( 'reminder_include' ) ) ? 'checked="checked" ' : ''?>/>
+			<?php echo lang_get( 'reminder_store_enabled' ) ?></label>
+	</td>
+	<td class="center" width="20%">
+		<label><input type="radio" name="reminder_include" value="0" <?php echo ( OFF == plugin_config_get( 'reminder_include' ) ) ? 'checked="checked" ' : ''?>/>
+			<?php echo lang_get( 'reminder_store_disabled' ) ?></label>
+	</td>
+</tr>
+
 <tr <?php echo helper_alternate_class() ?> >
 	<td class="category" width="60%">
 		<?php echo lang_get( 'reminder_project_name' ) ?>
 	</td>
-	<td width="20%">
-			<select name="reminder_project_id">
-			<option value="0" ><?php echo lang_get( 'all_projects' ); ?></option>
-			<?php
-			$t_value=plugin_config_get( 'reminder_project_id');
-			print_project_option_list( $t_value, FALSE, NULL, FALSE ) ;
-			?>
-			</select> 
+		<td  width="20%">
+			<input type="text" name="reminder_project_id" size="50" maxlength="50" value="<?php echo plugin_config_get( 'reminder_project_id' )?>" >
 	</td>
-		</td><td>
+	</td><td>
 </tr>
 
 <tr <?php echo helper_alternate_class() ?>>
@@ -271,21 +286,7 @@ function reminder_print_status_option_list( $p_name ) {
 	<?php echo lang_get( 'reminder_feedback_email' ) ?>  
 	</td>
 </tr>	
-<tr <?php echo helper_alternate_class() ?> >	
-  <td class="category" width="60%">
-		<?php echo lang_get( 'reminder_feedback_project_name' ) ?>
-	</td>
-	<td width="20%">
-			<select name="reminder_feedback_project">
-			<option value="0" ><?php echo lang_get( 'all_projects' ); ?></option>
-			<?php
-			$t_value=plugin_config_get( 'reminder_feedback_project');
-			print_project_option_list( $t_value, FALSE, NULL, FALSE ) ;
-			?>
-			</select> 
-	</td>
-		</td><td>
-</tr>
+
 
 <tr <?php echo helper_alternate_class() ?>>
 	<td class="category" width="60%">
@@ -303,7 +304,8 @@ function reminder_print_status_option_list( $p_name ) {
 	</td>
 	<td  width="20%">
 			<input type="text" name="reminder_subject" size="50" maxlength="50" value="<?php echo plugin_config_get( 'reminder_subject' )?>" >
-	</td><td></td>
+	</td>
+	<td></td>
 </tr>
 <tr></tr>
 <tr></tr>
@@ -341,14 +343,17 @@ function reminder_print_status_option_list( $p_name ) {
 	</td><td></td>
 </tr>
 
-
-<tr>
-	<td class="center" colspan="3">
-		<input type="submit" class="button" value="<?php echo lang_get( 'reminder_update_config' ) ?>" />
-	</td>
-</tr>
-
 </table>
-<form>
+</div>
+</div>
+<div class="widget-toolbox padding-8 clearfix">
+	<input type="submit" class="btn btn-primary btn-white btn-round" value="<?php echo lang_get( 'change_configuration' )?>" />
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+ 
 <?php
-html_page_bottom1( __FILE__ );
+layout_page_end();

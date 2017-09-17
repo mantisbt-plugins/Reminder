@@ -30,3 +30,5 @@ $s_reminder_plugin_desc 			= "Warn for Upcoming Due Dates by Email and Csv Expor
 $s_reminder_hours					= "Use Hours instead of Days";
 $s_reminder_export_settings			= "Export Settings";
 $s_reminder_export_colsep			= "Csv Column separator character";
+$s_reminder_include					= "Include selection of projects ( Off = Exclude)";
+

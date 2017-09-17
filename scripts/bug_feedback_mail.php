@@ -29,12 +29,22 @@ $status			= config_get('plugin_Reminder_reminder_feedback_status');
 $t_rem_body1	= config_get( 'plugin_Reminder_reminder_group_body1' );
 $t_rem_body2	= config_get( 'plugin_Reminder_reminder_group_body2' );
 
-if ($t_project>0){
-	$query = "select id,reporter_id,handler_id,project_id from $t_bug_table where status in (".implode(",", $status).") and project_id=$t_project order by reporter_id";
-} else{
-	$query = "select id,reporter_id,handler_id,project_id from $t_bug_table where status in (".implode(",", $status).") order by reporter_id";
-}
 
+$query = "select id,reporter_id,handler_id,project_id from $t_bug_table where status in (".implode(",", $status).") ";
+
+
+$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+$t_rem_projects	= "(";
+$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+$t_rem_projects	.= ")";
+if (ON==$t_rem_include){
+	if ($t_rem_projects <>"0") {
+		$query .= " and $t_bug_table.project_id IN ". $t_rem_projects;
+	}
+}else{
+	$query .= " and $t_bug_table.project_id NOT IN ".$t_rem_projects;
+}
+$query .= " order by reporter_id";
 //echo "query: ".$query."\n";
 
 $results = db_query_bound( $query );

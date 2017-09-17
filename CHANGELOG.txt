@@ -52,3 +52,9 @@ xxx		2013-03-07	samwilson	Moved to Github for easier collaboration.
 								Fixed paths in mailing scripts, so they can be called from anywhere.
 								Added assigned_bugs.php mailing script, to email assignees of open bugs.
 								Updated READMEs.
+1.23	2016-05-14	cas			Added option to include/exclude multiple projects in selection
+2.01	2017-01-21	cas			Compatible version for Mantis 2.0
+2.02							Bugfixes
+2.03							Bugfixes
+2.04							Bugfixes
+2.05	2017-09-16				Bugfixes

@@ -30,3 +30,4 @@ $s_reminder_plugin_desc 			= "Erinnert an fällige Einträge per Email und CSV-E
 $s_reminder_hours					= "Benutze Stunden statt Tagen";
 $s_reminder_export_settings			= "Export-Einstellungen";
 $s_reminder_export_colsep			= "Trennzeichen der CSV-Spalten";
+$s_reminder_include					= "Include selection of projects ( Off = Exclude)";

@@ -1,9 +1,12 @@
 <?php
 # Make sure this script doesn't run via the webserver
+/*
 if( php_sapi_name() != 'cli' ) {
-	echo "It is not allowed to run this script through the webserver.\n";
+	echo "It is not allowed to run this script with PHP SAPI name: " . php_sapi_name() . ".\n";
 	exit( 1 );
 }
+*/
+
 # This page sends an E-mail if a due date is getting near
 # includes all due_dates not met
 require_once( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . DIRECTORY_SEPARATOR . 'core.php' );
@@ -59,14 +62,27 @@ if ( ON == $t_rem_handler ) {
 			$query .=" and due_date>1" ;
 		}
 	}
-	if ( $t_rem_project>0 ) {
-		$query .=" and project_id=$t_rem_project" ;
+//	if ( $t_rem_project>0 ) {
+//		$query .=" and project_id=$t_rem_project" ;
+//	}
+	
+	$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+$t_rem_projects	= "(";
+$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+$t_rem_projects	.= ")";
+if (ON==$t_rem_include){
+	if ($t_rem_projects <> 0) {
+		$query .= " and bugs.project_id IN ". $t_rem_projects;
 	}
+}else{
+	$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
+}
+	
 	if ( ON == $t_rem_group1 ) {
 		$query .=" order by handler_id" ;
 	}else{
 		if ( ON == $t_rem_group2 ) {
-			$query .=" order by project_id,handler_id" ;
+			$query .=" order by bugs.project_id,handler_id" ;
 		}
 	}
 	$results = db_query_bound( $query );
@@ -147,9 +163,21 @@ if ( ON == $t_rem_manager ) {
 			$query .=" and due_date>1" ;
 		}
 	}
-	if ( $t_rem_project>0 ) {
-		$query .=" and $t_bug_table.project_id=$t_rem_project" ;
+//	if ( $t_rem_project>0 ) {
+//		$query .=" and $t_bug_table.project_id=$t_rem_project" ;
+//	}
+
+$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+$t_rem_projects	= "(";
+$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+$t_rem_projects	.= ")";
+if (ON==$t_rem_include){
+	if ($t_rem_projects <> 0) {
+		$query .= " and $t_bug_table.project_id IN ". $t_rem_projects;
 	}
+}else{
+	$query .= " and $t_bug_table.project_id NOT IN ".$t_rem_projects;
+}
 	$query .=" and $t_bug_table.project_id=$t_man_table.project_id and $t_man_table.access_level=70" ;
 	$query .=" order by $t_man_table.project_id,$t_man_table.user_id" ;
 	$results = db_query_bound( $query );
