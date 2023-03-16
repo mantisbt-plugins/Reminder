@@ -39,7 +39,19 @@ $baseline=time(true)+ ($t_rem_days*$multiply*60*60);
 
 $query="select $t_bug_table.id,summary,due_date,username,realname from $t_bug_table,$t_user_table where $t_bug_table.handler_id=$t_user_table.id and status in (".implode(",", $t_rem_status).") and due_date>1 and due_date<=$baseline" ;
 
-$results = db_query_bound( $query );
+$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+$t_rem_projects	= "(";
+$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+$t_rem_projects	.= ")";
+if (ON==$t_rem_include){
+	if ($t_rem_projects <>"0") {
+		$query .= " and $t_bug_table.project_id IN ". $t_rem_projects;
+	}
+}else{
+	$query .= " and $t_bug_table.project_id NOT IN ".$t_rem_projects;
+}
+
+$results = db_query( $query );
 if (!$results) {
 	echo "Nothing to report (or version too old,no due_date field)";
 	echo '<br>';

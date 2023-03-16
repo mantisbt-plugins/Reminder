@@ -30,3 +30,4 @@ $s_reminder_plugin_desc 			= "以信件與CSV檔警告即將到期的問題" ;
 $s_reminder_hours					= "以時數來取代天數";
 $s_reminder_export_settings			= "匯出設定";
 $s_reminder_export_colsep			= "Csv分割符號";
+$s_reminder_include					= "Include selection of projects ( Off = Exclude)";

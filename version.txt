@@ -1,0 +1,3 @@
+Version: 2.17 #
+Devurl: https://github.com/mantisbt-plugins/Reminder/blob/main/version.txt #
+Location: https://github.com/mantisbt-plugins/Reminder/archive/refs/heads/main.zip #

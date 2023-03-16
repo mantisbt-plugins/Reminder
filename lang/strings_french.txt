@@ -30,3 +30,4 @@ $s_reminder_plugin_desc 			= "Envoie des emails pour prévenir de l'approche de 
 $s_reminder_hours					= "Utiliser des heures à la place des jours";
 $s_reminder_export_settings			= "Export Configuration";
 $s_reminder_export_colsep			= "Séparateur de colonne pour les fichiers CSV";
+$s_reminder_include					= "Include selection of projects ( Off = Exclude)";

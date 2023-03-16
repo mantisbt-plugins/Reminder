@@ -4,8 +4,8 @@ class ReminderPlugin extends MantisPlugin {
 	function register() {
 		$this->name        = 'Reminder';
 		$this->description = lang_get( 'reminder_plugin_desc' );
-		$this->version     = '2.0';
-		$this->requires    = array('MantisCore'       => '1.3.0',);
+		$this->version     = '2.17';
+		$this->requires    = array('MantisCore'       => '2.0.0',);
 		$this->author      = 'Cas Nuy';
 		$this->contact     = 'Cas-at-nuy.info';
 		$this->url         = 'http://www.nuy.info';
@@ -29,14 +29,15 @@ class ReminderPlugin extends MantisPlugin {
 			'reminder_group_subject'		=> "You have issues approaching their Due Date",
 			'reminder_group_body1'			=> "Please review the following issues",
 			'reminder_group_body2'			=> "Please do not reply to this message",
-			'reminder_project_id'			=> 0,
+			'reminder_project_id'			=> "0",
+			'reminder_include'				=>	ON,
 			'reminder_login'				=> 'admin',
-			'reminder_feedback_project'		=> 0,
 			'reminder_feedback_status'		=> array(FEEDBACK),
 			'reminder_subject'				=> 'Issues requiring your attention',
 			'reminder_finished'				=> 'Finished processing your selection',
 			'reminder_hours'				=> OFF,
 			'reminder_colsep'				=> ';',
+			'reminder_details'				=> OFF,
 			);
 	}
 

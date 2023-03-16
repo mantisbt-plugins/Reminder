@@ -48,8 +48,8 @@ if (ON != $t_rem_hours){
 // this needs to be made flexible
 // we will only produce overview for those projects that have a separate manager
 //
-$baseline	= time(true)+ ($t_rem_days*$multiply*60*60);
-$basenow	= time(true);
+$baseline	= time()+ ($t_rem_days*$multiply*60*60);
+$basenow	= time();
 if ( ON == $t_rem_handler ) {
 	$query = "select bugs.id, bugs.handler_id, bugs.project_id, bugs.priority, bugs.category_id, bugs.status, bugs.severity, bugs.summary from $t_bug_table bugs JOIN $t_bug_text_table text ON (bugs.bug_text_id = text.id) where status in (".implode(",", $t_rem_status).") and due_date<=$baseline and handler_id<>0 ";
 	if ( ON == $t_rem_ign_past ) {
@@ -59,17 +59,30 @@ if ( ON == $t_rem_handler ) {
 			$query .=" and due_date>1" ;
 		}
 	}
-	if ( $t_rem_project>0 ) {
-		$query .=" and project_id=$t_rem_project" ;
+//	if ( $t_rem_project>0 ) {
+//		$query .=" and project_id=$t_rem_project" ;
+//	}
+	
+	$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+$t_rem_projects	= "(";
+$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+$t_rem_projects	.= ")";
+if (ON==$t_rem_include){
+	if ($t_rem_projects <>"0") {
+		$query .= " and $t_bug_table.project_id IN ". $t_rem_projects;
 	}
+}else{
+	$query .= " and $t_bug_table.project_id NOT IN ".$t_rem_projects;
+}
+	
 	if ( ON == $t_rem_group1 ) {
 		$query .=" order by handler_id" ;
 	}else{
 		if ( ON == $t_rem_group2 ) {
-			$query .=" order by project_id,handler_id" ;
+			$query .=" order by $t_bug_table.project_id,handler_id" ;
 		}
 	}
-	$results = db_query_bound( $query );
+	$results = db_query( $query );
 	$resnum=db_num_rows($results);
 	if ( OFF == $t_rem_group1 ) {
 		if ($results) {
@@ -147,12 +160,24 @@ if ( ON == $t_rem_manager ) {
 			$query .=" and due_date>1" ;
 		}
 	}
-	if ( $t_rem_project>0 ) {
-		$query .=" and $t_bug_table.project_id=$t_rem_project" ;
+//	if ( $t_rem_project>0 ) {
+//		$query .=" and $t_bug_table.project_id=$t_rem_project" ;
+//	}
+
+$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+$t_rem_projects	= "(";
+$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+$t_rem_projects	.= ")";
+if (ON==$t_rem_include){
+	if ($t_rem_projects <>"0") {
+		$query .= " and project_id IN ". $t_rem_projects;
 	}
+}else{
+	$query .= " and project_id NOT IN ".$t_rem_projects;
+}
 	$query .=" and $t_bug_table.project_id=$t_man_table.project_id and $t_man_table.access_level=70" ;
 	$query .=" order by $t_man_table.project_id,$t_man_table.user_id" ;
-	$results = db_query_bound( $query );
+	$results = db_query( $query );
 	$resnum=db_num_rows($results);
 	if ($results){
 		$start = true ;

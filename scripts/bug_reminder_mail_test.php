@@ -1,6 +1,6 @@
 <?php
 # This page tests sending an E-mail if a due date is getting near
-# No real email is sent not are notes crreated for the various issues
+# No real email is sent nor are notes created for the various issues
 require_once( '../../../core.php' );
 $t_login	= config_get( 'plugin_Reminder_reminder_login' );
 $ok=auth_attempt_script_login( $t_login );
@@ -12,7 +12,7 @@ require_once( $t_core_path.'bugnote_api.php' );
 $t_bug_table	= db_get_table( 'mantis_bug_table' );
 $t_man_table	= db_get_table( 'mantis_project_user_list_table' );
 
-$t_rem_project	= config_get( 'plugin_Reminder_reminder_project_id' );
+// $t_rem_project	= config_get( 'plugin_Reminder_reminder_project_id' );
 $t_rem_days		= config_get( 'plugin_Reminder_reminder_days_treshold' );
 $t_rem_status	= config_get( 'plugin_Reminder_reminder_bug_status' );
 $t_rem_body		= config_get( 'plugin_Reminder_reminder_mail_subject' );
@@ -55,19 +55,32 @@ if ( ON == $t_rem_handler ) {
 			$query .=" and due_date>1" ;
 		}
 	}
-	if ( $t_rem_project>0 ) {
-		$query .=" and project_id=$t_rem_project" ;
+//	if ( $t_rem_project>0 ) {
+//		$query .=" and project_id=$t_rem_project" ;
+//	}
+
+$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+$t_rem_projects	= "(";
+$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+$t_rem_projects	.= ")";
+if (ON==$t_rem_include){
+	if ($t_rem_projects <>"0") {
+		$query .= " and $t_bug_table.project_id IN ". $t_rem_projects;
 	}
+}else{
+	$query .= " and $t_bug_table.project_id NOT IN ".$t_rem_projects;
+}
+	
 	if ( ON == $t_rem_group1 ) {
 		$query .=" order by handler_id" ;
 	}else{
 		if ( ON == $t_rem_group2 ) {
-			$query .=" order by project_id,handler_id" ;
+			$query .=" order by $t_bug_table.project_id,handler_id" ;
 		}
 	}
 	echo $query;
 	echo "<br>"  ;
-	$results = db_query_bound( $query );
+	$results = db_query( $query );
 	$resnum=db_num_rows($results);
 	echo $resnum;
 	echo "<br>"  ;
@@ -176,14 +189,29 @@ if ( ON == $t_rem_manager ) {
 			$query .=" and due_date>1" ;
 		}
 	}
-	if ( $t_rem_project>0 ) {
-		$query .=" and $t_bug_table.project_id=$t_rem_project" ;
+//	if ( $t_rem_project>0 ) {
+//		$query .=" and $t_bug_table.project_id=$t_rem_project" ;
+//	}
+$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+$t_rem_projects	= "(";
+$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+$t_rem_projects	.= ")";
+if (ON==$t_rem_include){
+	if ($t_rem_projects <>"0") {
+		$query .= " and $t_bug_table.project_id IN ". $t_rem_projects;
 	}
+}else{
+	$query .= " and $t_bug_table.project_id NOT IN ".$t_rem_projects;
+}
+
 	$query .=" and $t_bug_table.project_id=$t_man_table.project_id and $t_man_table.access_level=70" ;
 	$query .=" order by $t_man_table.project_id,$t_man_table.user_id" ;
+	
+
+	
 	echo $query;
 	echo "<br>"  ;
-	$results = db_query_bound( $query );
+	$results = db_query( $query );
 	$resnum=db_num_rows($results);
 	echo $resnum;
 	echo "<br>"  ;
