@@ -170,8 +170,8 @@ This code is available on github: https://github.com/mantisbt-plugins/Reminder
 * Thanks                                                                       *
 ********************************************************************************
 
-Mark Ziegler	German translation	May 2010
-
+Mark Ziegler	   German translation      May 2010
+Lukas Francalek   Czech translation      June 2023
 
 ********************************************************************************
 * Greetings                                                                    *
