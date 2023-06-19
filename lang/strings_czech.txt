@@ -1,0 +1,35 @@
+<?php
+$s_reminder_plugin_title 				= "Remainder";
+$s_reminder_config 						= "Nastavení";
+$s_reminder_bug_status					= "Vybrat pouze úkoly ve stavu";
+$s_reminder_mail_subject				= "Obsah připomínkové zprávy";
+$s_reminder_sender						= "E-mailová adresa odesílatele";
+$s_reminder_days_treshold				= "Počet dní (hodin) před termínem";
+$s_reminder_update_config				= 'Aktualizovat konfiguraci';
+$s_reminder_store_as_note				= "Uložit připomínku jako poznámku (pouze pro řešitele)";
+$s_reminder_store_enabled 				= "Zapnout";
+$s_reminder_store_disabled 			= "Vypnout";
+$s_reminder_details			 			= "Zasílat i detaily úkolu";
+$s_reminder_ignore_unset				= "Ignorovat úkoly bez nastaveného termínu";
+$s_reminder_ignore_past					= "Ignorovat úkoly s minulými termíny";
+$s_reminder_group_issues				= "Seskupovat úkoly (pouze pokud je níže vypnuto)";
+$s_reminder_group_project				= "Rozdělit seskupené e-maily podle projektu (pouze pokud je výše vypnuto)";
+$s_reminder_manager_overview			= "Odesílat e-mail pro manažera podle projektu";
+$s_reminder_handler						= "Odesílat e-mail pro řešitele";
+$s_reminder_group_subject				= "Předmět seskupeného e-mailu";
+$s_reminder_group_body1					= "Začátek seskupeného e-mailu";
+$s_reminder_group_body2					= "Konec seskupeného e-mailu";
+$s_reminder_project_name				= "Výběr projektů";
+$s_reminder_download						= "Stáhnout úkoly s blížícím se termínem";
+$s_reminder_feedback_email				= "Zpětná vazba e-mailem";
+$s_reminder_feedback_project_name	= "Vybrat projekt pro přijímání zpětné vazby e-mailem";
+$s_reminder_feedback_status			= "Vybrat pouze úkoly ve stavu";
+$s_reminder_login							= "Spustit plánovaný skript pod účtem: ";
+$s_reminder_subject						= "Předmět e-mailu zpětné vazby";
+$s_reminder_finished						= "Text na obrazovce po dokončení scriptu (pokud se spouští v prohlížeči)";
+$s_reminder_plugin_desc 				= "Upozorňování na blížící se termíny e-mailem a export těchto úkolů do CSV.";
+$s_reminder_hours							= "Použít hodiny místo dnů";
+$s_reminder_export_settings			= "Nastavení exportu";
+$s_reminder_export_colsep				= "Oddělovač sloupců v CSV souboru";
+$s_reminder_include						= "Zahrnout (zapnuto) nebo nezahrnout (vypnuto) projekty níže";
+?>
