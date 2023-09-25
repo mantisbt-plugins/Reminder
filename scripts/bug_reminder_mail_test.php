@@ -8,11 +8,6 @@ $t_core_path = config_get( 'core_path' );
 require_once( $t_core_path.'bug_api.php' );
 require_once( $t_core_path.'email_api.php' );
 require_once( $t_core_path.'bugnote_api.php' );
-
-$t_bug_table	= db_get_table( 'mantis_bug_table' );
-$t_man_table	= db_get_table( 'mantis_project_user_list_table' );
-
-// $t_rem_project	= config_get( 'plugin_Reminder_reminder_project_id' );
 $t_rem_days		= config_get( 'plugin_Reminder_reminder_days_treshold' );
 $t_rem_status	= config_get( 'plugin_Reminder_reminder_bug_status' );
 $t_rem_body		= config_get( 'plugin_Reminder_reminder_mail_subject' );
@@ -47,7 +42,7 @@ echo "<br>";
 if ( ON == $t_rem_handler ) {
 	echo 'Query-handler being executed' ;
 	echo '<br>';
-	$query = "select id,handler_id,project_id from $t_bug_table where status in (".implode(",", $t_rem_status).") and due_date<=$baseline and handler_id>0 ";
+	$query = "select id,handler_id,project_id from {bug} bugs where status in (".implode(",", $t_rem_status).") and due_date<=$baseline and handler_id>0 ";
 	if ( ON == $t_rem_ign_past ) {
 			$query .=" and due_date>=$basenow" ;
 	} else{
@@ -55,9 +50,6 @@ if ( ON == $t_rem_handler ) {
 			$query .=" and due_date>1" ;
 		}
 	}
-//	if ( $t_rem_project>0 ) {
-//		$query .=" and project_id=$t_rem_project" ;
-//	}
 
 $t_rem_include	= config_get('plugin_Reminder_reminder_include');
 $t_rem_projects	= "(";
@@ -65,17 +57,17 @@ $t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
 $t_rem_projects	.= ")";
 if (ON==$t_rem_include){
 	if ($t_rem_projects <>"0") {
-		$query .= " and $t_bug_table.project_id IN ". $t_rem_projects;
+		$query .= " and bugs.project_id IN ". $t_rem_projects;
 	}
 }else{
-	$query .= " and $t_bug_table.project_id NOT IN ".$t_rem_projects;
+	$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
 }
 	
 	if ( ON == $t_rem_group1 ) {
 		$query .=" order by handler_id" ;
 	}else{
 		if ( ON == $t_rem_group2 ) {
-			$query .=" order by $t_bug_table.project_id,handler_id" ;
+			$query .=" order by bugs.project_id,handler_id" ;
 		}
 	}
 	echo $query;
@@ -181,7 +173,7 @@ if ( ON == $t_rem_manager ) {
 	echo 'Query-Manager being executed' ;
 	echo '<br>';
 	// select relevant issues in combination with an assigned manager to the project
-	$query  = "select id,handler_id,user_id from $t_bug_table,$t_man_table where status in (".implode(",", $t_rem_status).") and due_date<=$baseline ";
+	$query  = "select id,handler_id,user_id from {bug} bugs,{project_user_lis} man where status in (".implode(",", $t_rem_status).") and due_date<=$baseline ";
 	if ( ON == $t_rem_ign_past ) {
 			$query .=" and due_date>=$basenow" ;
 	} else{
@@ -189,23 +181,21 @@ if ( ON == $t_rem_manager ) {
 			$query .=" and due_date>1" ;
 		}
 	}
-//	if ( $t_rem_project>0 ) {
-//		$query .=" and $t_bug_table.project_id=$t_rem_project" ;
-//	}
+
 $t_rem_include	= config_get('plugin_Reminder_reminder_include');
 $t_rem_projects	= "(";
 $t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
 $t_rem_projects	.= ")";
 if (ON==$t_rem_include){
 	if ($t_rem_projects <>"0") {
-		$query .= " and $t_bug_table.project_id IN ". $t_rem_projects;
+		$query .= " and bugs.project_id IN ". $t_rem_projects;
 	}
 }else{
-	$query .= " and $t_bug_table.project_id NOT IN ".$t_rem_projects;
+	$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
 }
 
-	$query .=" and $t_bug_table.project_id=$t_man_table.project_id and $t_man_table.access_level=70" ;
-	$query .=" order by $t_man_table.project_id,$t_man_table.user_id" ;
+	$query .=" and bugs.project_id=man.project_id and man.access_level=70" ;
+	$query .=" order by man.project_id,man.user_id" ;
 	
 
 	
