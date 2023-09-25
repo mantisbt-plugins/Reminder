@@ -23,8 +23,8 @@ require_once( $t_core_path.'email_api.php' );
 
 # Build and bind query
 $t_resolved = config_get( 'bug_resolved_status_threshold' );
-$query = "SELECT DISTINCT b.id bug_id, b.summary, b.handler_id, u.realname, u.email "
-	." FROM {bug} b JOIN {user} u ON (b.handler_id = u.id) "
+$query = "SELECT DISTINCT bugs.id bug_id, bugs.summary, bugs.handler_id, users.realname, users.email "
+	." FROM {bug} bugs JOIN {user} users ON (bugs.handler_id = users.id) "
 	." WHERE status < ".db_param();
 	
 $t_rem_include	= config_get('plugin_Reminder_reminder_include');
@@ -33,10 +33,10 @@ $t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
 $t_rem_projects	.= ")";
 if (ON==$t_rem_include){
 	if ($t_rem_projects <>"0") {
-		$query .= " and b.project_id IN ". $t_rem_projects;
+		$query .= " and bugs.project_id IN ". $t_rem_projects;
 	}
 }else{
-	$query .= " and b.project_id NOT IN ".$t_rem_projects;
+	$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
 }
 
 $results = db_query( $query, array($t_resolved) );
