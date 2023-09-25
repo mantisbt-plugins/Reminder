@@ -26,8 +26,6 @@ if (!$parm2){
 
 require_once( '../../../core.php' );
 $t_core_path = config_get( 'core_path' );
-$t_bug_table	= db_get_table( 'mantis_bug_table' );
-$t_user_table	= db_get_table( 'mantis_user_table' );
 $t_rem_hours	= config_get('plugin_Reminder_reminder_hours');
 if (ON == $t_rem_hours){
 	$multiply=24;
@@ -35,9 +33,7 @@ if (ON == $t_rem_hours){
 	$multiply=1;
 }
 $baseline=time(true)+ ($t_rem_days*$multiply*60*60);
-# $query="select $t_bug_table.id,summary,due_date,username,realname from $t_bug_table,$t_user_table where $t_bug_table.handler_id=$t_user_table.id and status=$t_rem_status and due_date>1 and due_date<=$baseline" ;
-
-$query="select $t_bug_table.id,summary,due_date,username,realname from $t_bug_table,$t_user_table where $t_bug_table.handler_id=$t_user_table.id and status in (".implode(",", $t_rem_status).") and due_date>1 and due_date<=$baseline" ;
+$query="select bugs.id,summary,due_date,username,realname from {bug} bugs,{user} users where bugs.handler_id=users.id and status in (".implode(",", $t_rem_status).") and due_date>1 and due_date<=$baseline" ;
 
 $t_rem_include	= config_get('plugin_Reminder_reminder_include');
 $t_rem_projects	= "(";
@@ -45,10 +41,10 @@ $t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
 $t_rem_projects	.= ")";
 if (ON==$t_rem_include){
 	if ($t_rem_projects <>"0") {
-		$query .= " and $t_bug_table.project_id IN ". $t_rem_projects;
+		$query .= " and bugs.project_id IN ". $t_rem_projects;
 	}
 }else{
-	$query .= " and $t_bug_table.project_id NOT IN ".$t_rem_projects;
+	$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
 }
 
 $results = db_query( $query );
