@@ -7,29 +7,14 @@
 
 require_once( '../../../core.php' );
 $t_login	= config_get( 'plugin_Reminder_reminder_login' );
-
-//echo "tlogion: ".$t_login."\n";
-
 $ok=auth_attempt_script_login( $t_login );
-
-
-//if ($ok) echo "ok=true\n";
-//else echo "ok=false\n";
-
 $t_core_path = config_get( 'core_path' );
-///require_once( $t_core_path.'bug_api.php' );
 require_once( $t_core_path.'email_api.php' );
-
-$t_bug_table	= db_get_table( 'mantis_bug_table' );
-
 $t_project		= config_get('plugin_Reminder_reminder_feedback_project');
 $status			= config_get('plugin_Reminder_reminder_feedback_status');
 $t_rem_body1	= config_get( 'plugin_Reminder_reminder_group_body1' );
 $t_rem_body2	= config_get( 'plugin_Reminder_reminder_group_body2' );
-
-
-	# $query = "select id,reporter_id,handler_id,project_id from $t_bug_table where status=$status order by reporter_id";
-	$query = "select id,reporter_id,handler_id,project_id from $t_bug_table where status in (".implode(",", $status).") ";
+$query = "select id,reporter_id,handler_id,project_id from {bug} bugs where status in (".implode(",", $status).") ";
 
 
 $t_rem_include	= config_get('plugin_Reminder_reminder_include');
@@ -38,10 +23,10 @@ $t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
 $t_rem_projects	.= ")";
 if (ON==$t_rem_include){
 	if ($t_rem_projects <>"0") {
-		$query .= " and $t_bug_table.project_id IN ". $t_rem_projects;
+		$query .= " and bugs.project_id IN ". $t_rem_projects;
 	}
 }else{
-	$query .= " and $t_bug_table.project_id NOT IN ".$t_rem_projects;
+	$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
 }
 $query .= " order by reporter_id";
 
