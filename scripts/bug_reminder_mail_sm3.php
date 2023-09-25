@@ -38,7 +38,6 @@ if (ON != $t_rem_hours){
 // we will only produce overview for those projects that have a separate manager
 //
 $baseline	= time()+ ($t_rem_days*$multiply*60*60);
-//$basenow	= time();
 $basenow	= time() - (2*$multiply*60*60) ;
 
 // Start of reporter
@@ -125,9 +124,9 @@ if ($results){
 // End of handler
 // Start of Manager
 // select relevant issues in combination with an assigned manager to the project
-$query  = "select id,handler_id,user_id,category_id from {bug} bug,{project_user_list} man where status in (".implode(",", $t_rem_status).") and due_date<=$baseline ";
+$query  = "select id,handler_id,user_id,category_id from {bug} bugs,{project_user_list} man where status in (".implode(",", $t_rem_status).") and due_date<=$baseline ";
 $query .= " and due_date>=$basenow" ;
-$query .= " and bug.project_id= man.project_id and man.access_level=70" ;
+$query .= " and bugs.project_id= man.project_id and man.access_level=70" ;
 $query .= " order by man.project_id,man.user_id" ;
 $results = db_query( $query );
 $resnum=db_num_rows($results);
