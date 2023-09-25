@@ -22,7 +22,7 @@ from the command line.
 
 ## Requirements
 
-The plugin requires MantisBT version 1.3.0 or higher.
+The plugin requires MantisBT version 2.0 or higher.
 
 Make sure to have this statement in confg_inc.php:
 ```
