@@ -104,7 +104,10 @@ reminder_feedback_project = 0; means ALL
 
 // For which status to send feedbackreminders
 reminder_bug_status = FEEDBACK
-```
+
+// On which account should we run the background jobs
+// In principle I would advise to use an account with enough rights, so I suggest something like the admin account (mantis account).
+reminder_login = 'admin'
 
 ## Automatically generating mail
 
@@ -167,11 +170,9 @@ For option Days/Hours, the script will fetch the plugin definition.
 ## Support
 
 Log new issues against the [Plugin - Reminder] project on
-[mantisbt.org's tracker](http://www.mantisbt.org/bugs/view_all_bug_page.php?project_id=7).
-
+[Github]((https://github.com/mantisbt-plugins/Reminde)).
 Main issue: http://www.mantisbt.org/bugs/view.php?id=10153
-
-Source code is available on [Github](https://github.com/mantisbt-plugins/Reminder).
+Source code is also available on [Github](https://github.com/mantisbt-plugins/Reminder).
 
 
 ## Credits
