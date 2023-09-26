@@ -106,8 +106,10 @@ reminder_feedback_project = 0; means ALL
 reminder_bug_status = FEEDBACK
 
 // On which account should we run the background jobs
-// In principle I would advise to use an account with enough rights, so I suggest something like the admin account (mantis account).
+// In principle I would advise to use an account with enough rights,
+// so I suggest something like the admin account (mantis account).
 reminder_login = 'admin'
+```
 
 ## Automatically generating mail
 
