@@ -173,7 +173,7 @@ For option Days/Hours, the script will fetch the plugin definition.
 
 Log new issues against the [Plugin - Reminder] project on
 [Github]((https://github.com/mantisbt-plugins/Reminde)).
-Main issue: http://www.mantisbt.org/bugs/view.php?id=10153
+
 Source code is also available on [Github](https://github.com/mantisbt-plugins/Reminder).
 
 
