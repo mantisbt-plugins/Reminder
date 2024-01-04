@@ -51,4 +51,4 @@ plugin_config_set('reminder_colsep'				, $f_reminder_colsep);
 plugin_config_set('reminder_details'			, $f_reminder_details);
 
 
-print_successful_redirect( plugin_page( 'config',TRUE ) );
+print_header_redirect( plugin_page( 'config', TRUE ) );
