@@ -32,4 +32,5 @@ $s_reminder_hours							= "Použít hodiny místo dnů";
 $s_reminder_export_settings			= "Nastavení exportu";
 $s_reminder_export_colsep				= "Oddělovač sloupců v CSV souboru";
 $s_reminder_include						= "Zahrnout (zapnuto) nebo nezahrnout (vypnuto) projekty níže";
+$s_reminder_details					= "Reminder Details";
 ?>
