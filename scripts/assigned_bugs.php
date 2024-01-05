@@ -15,7 +15,7 @@ if( php_sapi_name() != 'cli' ) {
 }
 
 # Set up environment
-require_once( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . DIRECTORY_SEPARATOR . 'core.php' );
+require_once( dirname( __FILE__, 4 ) . DIRECTORY_SEPARATOR . 'core.php' );
 $t_login = config_get( 'plugin_Reminder_reminder_login' );
 auth_attempt_script_login( $t_login );
 $t_core_path = config_get( 'core_path' );
