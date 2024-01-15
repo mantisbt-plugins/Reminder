@@ -1,3 +1,3 @@
 Version: 2.20 #
-Devurl: https://github.com/mantisbt-plugins/Reminder/blob/main/version.txt #
+Devurl: https://github.com/mantisbt-plugins/Reminder/blob/master/version.txt #
 Location: https://github.com/mantisbt-plugins/Reminder/archive/refs/heads/main.zip #
