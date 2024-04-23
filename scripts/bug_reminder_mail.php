@@ -60,15 +60,15 @@ if ( ON == $t_rem_handler ) {
 //		$query .=" and project_id=$t_rem_project" ;
 //	}
 	
-	$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+	$t_rem_include	= config_get( 'plugin_Reminder_reminder_include' );
 $t_rem_projects	= "(";
 $t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
 $t_rem_projects	.= ")";
-if (ON==$t_rem_include){
-	if ($t_rem_projects <>"0") {
+if ( ON==$t_rem_include ){
+	if ( !empty( config_get( 'plugin_Reminder_reminder_project_id' ) ) ) {
 		$query .= " and bugs.project_id IN ". $t_rem_projects;
 	}
-}else{
+} else {
 	$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
 }
 	
