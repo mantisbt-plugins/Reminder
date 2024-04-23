@@ -28,7 +28,9 @@ if (ON==$t_rem_include){
 		$query .= " and bugs.project_id IN ". $t_rem_projects;
 	}
 }else{
-	$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
+	if (!empty( config_get( 'plugin_Reminder_reminder_project_id' ) )) {
+		$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
+	}
 }
 $query .= " order by reporter_id";
 $results = db_query( $query );
