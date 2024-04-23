@@ -6,7 +6,7 @@ $query = "select * from ";
 $t_rem_include	= ON;
 $t_rem_projects	= "(1,3)";
 if (ON == $t_rem_include){
-	if ($t_rem_projects <>"0") {
+	if (!empty( config_get( 'plugin_Reminder_reminder_project_id' ) )) {
 		$query .= ' and project_id IN $t_rem_projects';
 	}
 }else{
