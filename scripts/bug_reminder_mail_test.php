@@ -175,7 +175,7 @@ if ( ON == $t_rem_manager ) {
 	echo 'Query-Manager being executed' ;
 	echo '<br>';
 	// select relevant issues in combination with an assigned manager to the project
-	$query  = "select id,handler_id,user_id from {bug} bugs,{project_user_lis} man where status in (".implode(",", $t_rem_status).") and due_date<=$baseline ";
+	$query  = "select id,handler_id,user_id from {bug} bugs,{project_user_list} man where status in (".implode(",", $t_rem_status).") and due_date<=$baseline ";
 	if ( ON == $t_rem_ign_past ) {
 			$query .=" and due_date>=$basenow" ;
 	} else{
