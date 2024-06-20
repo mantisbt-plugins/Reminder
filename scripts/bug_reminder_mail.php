@@ -172,7 +172,7 @@ if (ON==$t_rem_include){
 		$query .= " and bugs.project_id IN ". $t_rem_projects;
 	}
 }else{
-	$query .= " and project_id NOT IN ".$t_rem_projects;
+	$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
 }
 	$query .=" and bugs.project_id=man.project_id and man.access_level=70" ;
 	$query .=" order by man.project_id,man.user_id" ;
