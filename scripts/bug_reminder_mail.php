@@ -169,7 +169,7 @@ $t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
 $t_rem_projects	.= ")";
 if (ON==$t_rem_include){
 	if ($t_rem_projects <>"0") {
-		$query .= " and project_id IN ". $t_rem_projects;
+		$query .= " and bugs.project_id IN ". $t_rem_projects;
 	}
 }else{
 	$query .= " and project_id NOT IN ".$t_rem_projects;
