@@ -15,9 +15,6 @@ require_once( $t_core_path.'email_api.php' );
 require_once( $t_core_path.'bugnote_api.php' );
 require_once( $t_core_path.'category_api.php' );
 require_once( $t_core_path.'helper_api.php' );
-
-$allok= true ;
-
 $t_rem_project	= config_get( 'plugin_Reminder_reminder_project_id' );
 $t_rem_days		= config_get( 'plugin_Reminder_reminder_days_treshold' );
 $t_rem_status	= config_get( 'plugin_Reminder_reminder_bug_status' );
@@ -32,14 +29,12 @@ $t_rem_manager	= config_get( 'plugin_Reminder_reminder_manager_overview' );
 $t_rem_subject	= config_get( 'plugin_Reminder_reminder_group_subject' );
 $t_rem_body1	= config_get( 'plugin_Reminder_reminder_group_body1' );
 $t_rem_body2	= config_get( 'plugin_Reminder_reminder_group_body2' );
-
 $t_rem_hours	= config_get('plugin_Reminder_reminder_hours');
 if (ON != $t_rem_hours){
 	$multiply=24;
 } else{
 	$multiply=1;
 }
-
 //
 // access level for manager= 70
 // this needs to be made flexible
@@ -57,18 +52,18 @@ if ( ON == $t_rem_handler ) {
 		}
 	}
 	$t_rem_include	= config_get( 'plugin_Reminder_reminder_include' );
-$t_rem_projects	= "(";
-$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
-$t_rem_projects	.= ")";
-if ( ON==$t_rem_include ){
-	if ( !empty( config_get( 'plugin_Reminder_reminder_project_id' ) ) ) {
-		$query .= " and bugs.project_id IN ". $t_rem_projects;
+	$t_rem_projects	= "(";
+	$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+	$t_rem_projects	.= ")";
+	if ( ON==$t_rem_include ){
+		if ( !empty( config_get( 'plugin_Reminder_reminder_project_id' ) ) ) {
+			$query .= " and bugs.project_id IN ". $t_rem_projects;
+		}
+	} else {
+		if (!empty( config_get( 'plugin_Reminder_reminder_project_id' ) )) {
+			$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
+		}
 	}
-} else {
-	if (!empty( config_get( 'plugin_Reminder_reminder_project_id' ) )) {
-		$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
-	}
-}
 	
 	if ( ON == $t_rem_group1 ) {
 		$query .=" order by handler_id" ;
@@ -138,9 +133,7 @@ if ( ON==$t_rem_include ){
 				$body .= $list. " \n\n";
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $handler2, $body);
-
 			}
-			//
 		}
 	}
 }
@@ -155,21 +148,17 @@ if ( ON == $t_rem_manager ) {
 			$query .=" and due_date>1" ;
 		}
 	}
-//	if ( $t_rem_project>0 ) {
-//		$query .=" and bugs.project_id=$t_rem_project" ;
-//	}
-
-$t_rem_include	= config_get('plugin_Reminder_reminder_include');
-$t_rem_projects	= "(";
-$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
-$t_rem_projects	.= ")";
-if (ON==$t_rem_include){
-	if ($t_rem_projects <>"0") {
-		$query .= " and bugs.project_id IN ". $t_rem_projects;
+	$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+	$t_rem_projects	= "(";
+	$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+	$t_rem_projects	.= ")";
+	if (ON==$t_rem_include){
+		if ($t_rem_projects <>"0") {
+			$query .= " and bugs.project_id IN ". $t_rem_projects;
+		}
+	} else {
+		$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
 	}
-}else{
-	$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
-}
 	$query .=" and bugs.project_id=man.project_id and man.access_level=70" ;
 	$query .=" order by man.project_id,man.user_id" ;
 	$results = db_query( $query );
@@ -207,14 +196,10 @@ if (ON==$t_rem_include){
 			$body .= $list. " \n\n";
 			$body .= $t_rem_body2;
 			$result = email_group_reminder( $man2, $body);
-
 		}
-		//
 	}
 }
-if (php_sapi_name() !== 'cli'){
-	echo config_get( 'plugin_Reminder_reminder_finished' );
-}
+
 
 # Send Grouped reminder
 function email_group_reminder( $p_user_id, $issues ) {

@@ -43,8 +43,6 @@ echo "Path setting retrieved : ".config_get('path');
 echo "<br>";
 
 if ( ON == $t_rem_handler ) {
-	echo 'Query-handler being executed' ;
-	echo '<br>';
 	$query = "select id,handler_id,project_id from {bug} bugs where status in (".implode(",", $t_rem_status).") and due_date<=$baseline and handler_id>0 ";
 	$query = "select bugs.id, bugs.handler_id, bugs.project_id, bugs.priority, bugs.category_id, bugs.status, bugs.severity, bugs.summary from {bug} bugs JOIN {bug_text} text ON (bugs.bug_text_id = text.id) where status in (".implode(",", $t_rem_status).") and due_date<=$baseline and handler_id<>0 ";
 
@@ -76,21 +74,13 @@ if ( ON==$t_rem_include ){
 			$query .=" order by bugs.project_id,handler_id" ;
 		}
 	}
-	echo $query;
-	echo "<br>"  ;
 	$results = db_query( $query );
 	$resnum=db_num_rows($results);
-	echo $resnum;
-	echo "<br>"  ;
 	if ( OFF == $t_rem_group1 ) {
 		if ($results) {
 			while ($row1 = db_fetch_array($results)) {
 				$id 		= $row1['id'];
 				$handler	= $row1['handler_id'];
-				echo $id;
-				echo '*';
-				echo $handler;
-				echo "<br>";
 				$list = string_get_bug_view_url_with_fqdn( $id, $handler2 );
 				$body  = $t_rem_body1;
 				$body .= "<br>";
@@ -101,13 +91,10 @@ if ( ON==$t_rem_include ){
 				# Add reminder as bugnote if store reminders option is ON.
 				if ( ON == $t_rem_store ) {
 					$t_attr = '|'.$handler2.'|';
-//					bugnote_add( $id, $t_rem_body, 0, config_get( 'default_reminder_view_status' ) == VS_PRIVATE, REMINDER, $t_attr, NULL, FALSE );
+					bugnote_add( $id, $t_rem_body, 0, config_get( 'default_reminder_view_status' ) == VS_PRIVATE, REMINDER, $t_attr, NULL, FALSE );
 				}
 			}
-		} else {
-			echo 'Query-handler had no results'.$query ;
-			echo '<br>';
-		}
+		} 
 	} else {
 		if ($results){
 			$start = true ;
@@ -117,23 +104,18 @@ if ( ON==$t_rem_include ){
 				$id 		= $row1['id'];
 				$handler	= $row1['handler_id'];
 				$project	= $row1['project_id'];
-				echo $id;
-				echo '*';
-				echo $handler;
-				echo '*';
-				echo $project;
-				echo "<br>";
 				if ($start){
 					$handler2 = $handler ;
 					$start = false ;
 				}
 				if ($handler==$handler2){
-					$list .="<br>";
-					$list .= string_get_bug_view_url_with_fqdn( $id, $handler2 );
+					$list .= formatBugEntry($row1);
+//				$list .="<br>";
+//					$list .= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
 						$t_attr = '|'.$handler2.'|';
-//						bugnote_add( $id, $t_rem_body, 0, config_get( 'default_reminder_view_status' ) == VS_PRIVATE, REMINDER, $t_attr, NULL, FALSE );
+						bugnote_add( $id, $t_rem_body, 0, config_get( 'default_reminder_view_status' ) == VS_PRIVATE, REMINDER, $t_attr, NULL, FALSE );
 					}
 				} else {
 					// now send the grouped email
@@ -144,12 +126,13 @@ if ( ON==$t_rem_include ){
 					$body .= $t_rem_body2;
 					$result = email_group_reminder( $handler2, $body);
 					$handler2 = $handler ;
-					$list ="<br>";
-					$list= string_get_bug_view_url_with_fqdn( $id, $handler2 );
+					$list .= formatBugEntry($row1);
+//					$list ="<br>";
+//					$list= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
 						$t_attr = '|'.$handler2.'|';
-//						bugnote_add( $id, $t_rem_body, 0, config_get( 'default_reminder_view_status' ) == VS_PRIVATE, REMINDER, $t_attr, NULL, FALSE );
+						bugnote_add( $id, $t_rem_body, 0, config_get( 'default_reminder_view_status' ) == VS_PRIVATE, REMINDER, $t_attr, NULL, FALSE );
 					}
 				}
 			}
@@ -163,21 +146,12 @@ if ( ON==$t_rem_include ){
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $handler2, $body);
 
-			} else{
-				echo 'Query-Handler had no results '.$query ;
-				echo '<br>';
 			}
-			//
-		}else {
-			echo 'Query-handler had no results '.$query ;
-			echo '<br>';
 		}
 	}
 }
 
 if ( ON == $t_rem_manager ) {
-	echo 'Query-Manager being executed' ;
-	echo '<br>';
 	// select relevant issues in combination with an assigned manager to the project
 	$query  = "select id,handler_id,user_id from {bug} bugs,{project_user_list} man where status in (".implode(",", $t_rem_status).") and due_date<=$baseline ";
 	if ( ON == $t_rem_ign_past ) {
@@ -201,12 +175,8 @@ if (ON==$t_rem_include){
 }
 	$query .=" and bugs.project_id=man.project_id and man.access_level=70" ;
 	$query .=" order by man.project_id,man.user_id" ;
-	echo $query;
-	echo "<br>"  ;
 	$results = db_query( $query );
 	$resnum=db_num_rows($results);
-	echo $resnum;
-	echo "<br>"  ;
 	if ($results){
 		$start = true ;
 		$list= "";
@@ -215,12 +185,6 @@ if (ON==$t_rem_include){
 				$id 		= $row1['id'];
 				$handler	= $row1['handler_id'];
 				$manager	= $row1['user_id'];
-			echo $id;
-			echo '*';
-			echo $handler;
-			echo '*';
-			echo $manager;
-			echo "<br>";
 			if ($start){
 				$man2 = $manager ;
 				$start = false ;
@@ -247,17 +211,10 @@ if (ON==$t_rem_include){
 			$body .= $t_rem_body2;
 			$result = email_group_reminder( $man2, $body);
 
-		}else{
-				echo 'Query-Manager had no results '.$query ;
-				echo '<br>';
-			}
-	} else {
-		echo 'Query-Manager had no results '.$query ;
-		echo '<br>';
-	}
+		}
+	} 
 }
-echo '<br><br><br>';
-echo 'Finished Reminder Test ';
+
 
 # Send Grouped reminder
 function email_group_reminder( $p_user_id, $issues ) {
@@ -277,4 +234,38 @@ function email_group_reminder( $p_user_id, $issues ) {
 			email_send_all();
 		}
 	}
+}
+
+function formatBugEntry($data){
+	lang_push( user_pref_get_language( $data['handler_id'] ) );
+
+	$p_visible_bug_data = $data;
+	$p_visible_bug_data['email_project'] = project_get_name( $data['project_id']);
+	$p_visible_bug_data['email_category'] = category_get_name($data['category_id']);
+
+	$t_email_separator1 = config_get( 'email_separator1' );
+	$t_email_separator2 = config_get( 'email_separator2' );
+
+	$p_visible_bug_data['email_bug'] = $data['id'];
+	$p_visible_bug_data['email_status'] = get_enum_element( 'status', $p_visible_bug_data['status'], $data['handler_id'], $data['project_id'] );
+	$p_visible_bug_data['email_severity'] = get_enum_element( 'severity', $p_visible_bug_data['severity'] );
+	$p_visible_bug_data['email_priority'] = get_enum_element( 'priority', $p_visible_bug_data['priority'] );
+	$p_visible_bug_data['email_reproducibility'] = get_enum_element( 'reproducibility', $p_visible_bug_data['reproducibility'] );
+	$p_visible_bug_data['email_summary'] = $data['summary'];
+
+	$t_message = $t_email_separator1 . " \n";
+	$t_message .= string_get_bug_view_url_with_fqdn( $data['id'], $data['handler_id'] ) . " \n";
+	$t_message .= $t_email_separator1 . " \n";
+
+	$t_message .= email_format_attribute( $p_visible_bug_data, 'email_project' );
+	$t_message .= email_format_attribute( $p_visible_bug_data, 'email_bug' );
+	$t_message .= email_format_attribute( $p_visible_bug_data, 'email_category' );
+	$t_message .= email_format_attribute( $p_visible_bug_data, 'email_priority' );
+	$t_message .= email_format_attribute( $p_visible_bug_data, 'email_status' );
+	$t_message .= $t_email_separator1 . " \n";
+
+	$t_message .= email_format_attribute( $p_visible_bug_data, 'email_summary' );
+	$t_message .= $t_email_separator1 . " \n\n\n";
+
+	return $t_message;
 }
