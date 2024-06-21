@@ -28,7 +28,7 @@ After copying to your webserver :
 - Start mantis ad administrator
 - Select manage
 - Select manage Plugins
-- Select Install behind Reminder 1.10
+- Select Install behind Reminder 2.22
 - Once installed, click on the plugin-name for further configuration.
 
 For version 1.2.1 make sure to have this statement in confg_inc.php:

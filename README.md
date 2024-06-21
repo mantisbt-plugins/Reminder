@@ -1,6 +1,6 @@
 # Reminder Plugin
 
-Copyright (c) 2009  Cas Nuy - cas@nuy.info - http://www.nuy.info
+Copyright (c) 2009 - 2024 Cas Nuy - cas@nuy.info - http://www.nuy.info
 
 Released under the [GPL 2.0](http://opensource.org/licenses/GPL-2.0)
 

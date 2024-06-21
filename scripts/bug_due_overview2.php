@@ -32,7 +32,7 @@ if (ON == $t_rem_hours){
 } else{
 	$multiply=1;
 }
-$baseline=time(true)+ ($t_rem_days*$multiply*60*60);
+$baseline=time()+ ($t_rem_days*$multiply*60*60);
 $query="select bugs.id,summary,due_date,username,realname from {bug} bugs,{user} users where bugs.handler_id=users.id and status in (".implode(",", $t_rem_status).") and due_date>1 and due_date<=$baseline" ;
 
 $t_rem_include	= config_get('plugin_Reminder_reminder_include');

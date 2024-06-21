@@ -56,3 +56,4 @@ xxx		2013-03-07	samwilson	Moved to Github for easier collaboration.
 2.01	2017-01-21	cas			Compatible version for Mantis 2.0
 2.02							Bugfixes
 2.03							Bugfixes
+2.22	2024-6-21	cas			Bugfixes (mainly in relation to newer php version)

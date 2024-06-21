@@ -33,8 +33,8 @@ if (ON != $t_rem_hours){
 // this needs to be made flexible
 // we will only produce overview for those projects that have a separate manager
 //
-$baseline	= time(true)+ ($t_rem_days*$multiply*60*60);
-$basenow	= time(true);
+$baseline	= time()+ ($t_rem_days*$multiply*60*60);
+$basenow	= time();
 
 echo "Path setting retrieved : ".config_get('path');
 echo "<br>";
