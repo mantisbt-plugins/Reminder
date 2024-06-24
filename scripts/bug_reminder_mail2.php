@@ -1,6 +1,6 @@
 <?php
-# This page tests sending an E-mail if a due date is getting near
-# Real email is sent but notes are not created for the various issues
+# This page sends an E-mail if a due date is getting near
+# includes all due_dates not met
 require_once( '../../../core.php' );
 $t_login	= config_get( 'plugin_Reminder_reminder_login' );
 $ok=auth_attempt_script_login( $t_login );
@@ -24,7 +24,6 @@ $t_rem_manager	= config_get( 'plugin_Reminder_reminder_manager_overview' );
 $t_rem_subject	= config_get( 'plugin_Reminder_reminder_group_subject' );
 $t_rem_body1	= config_get( 'plugin_Reminder_reminder_group_body1' );
 $t_rem_body2	= config_get( 'plugin_Reminder_reminder_group_body2' );
-
 $t_rem_hours	= config_get('plugin_Reminder_reminder_hours');
 if (ON != $t_rem_hours){
 	$multiply=24;
@@ -38,14 +37,8 @@ if (ON != $t_rem_hours){
 //
 $baseline	= time()+ ($t_rem_days*$multiply*60*60);
 $basenow	= time();
-
-echo "Path setting retrieved : ".config_get('path');
-echo "<br>";
-
 if ( ON == $t_rem_handler ) {
-	$query = "select id,handler_id,project_id from {bug} bugs where status in (".implode(",", $t_rem_status).") and due_date<=$baseline and handler_id>0 ";
 	$query = "select bugs.id, bugs.handler_id, bugs.project_id, bugs.priority, bugs.category_id, bugs.status, bugs.severity, bugs.summary from {bug} bugs JOIN {bug_text} text ON (bugs.bug_text_id = text.id) where status in (".implode(",", $t_rem_status).") and due_date<=$baseline and handler_id<>0 ";
-
 	if ( ON == $t_rem_ign_past ) {
 			$query .=" and due_date>=$basenow" ;
 	} else{
@@ -57,15 +50,15 @@ if ( ON == $t_rem_handler ) {
 	$t_rem_projects	= "(";
 	$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
 	$t_rem_projects	.= ")";
-if ( ON==$t_rem_include ){
-	if ( !empty( config_get( 'plugin_Reminder_reminder_project_id' ) ) )  {
-		$query .= " and bugs.project_id IN ". $t_rem_projects;
+	if ( ON==$t_rem_include ){
+		if ( !empty( config_get( 'plugin_Reminder_reminder_project_id' ) ) )  {
+			$query .= " and bugs.project_id IN ". $t_rem_projects;
+		}
+	} else {
+		if (!empty( config_get( 'plugin_Reminder_reminder_project_id' ) )) {
+			$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
+		}
 	}
-} else {
-	if (!empty( config_get( 'plugin_Reminder_reminder_project_id' ) )) {
-		$query .= " and bugs.project_id NOT IN ".$t_rem_projects;
-	}
-}
 	
 	if ( ON == $t_rem_group1 ) {
 		$query .=" order by handler_id" ;
@@ -82,10 +75,8 @@ if ( ON==$t_rem_include ){
 				$id 		= $row1['id'];
 				$handler	= $row1['handler_id'];
 				$list = string_get_bug_view_url_with_fqdn( $id, $handler2 );
-				$body  = $t_rem_body1;
-				$body .= "<br>";
-				$body .= $list;
-				$body .= "<br>";
+				$body  = $t_rem_body1. " \n\n";
+				$body .= $list. " \n\n";
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $handler, $body );
 				# Add reminder as bugnote if store reminders option is ON.
@@ -110,8 +101,6 @@ if ( ON==$t_rem_include ){
 				}
 				if ($handler==$handler2){
 					$list .= formatBugEntry($row1);
-//				$list .="<br>";
-//					$list .= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
 						$t_attr = '|'.$handler2.'|';
@@ -119,16 +108,12 @@ if ( ON==$t_rem_include ){
 					}
 				} else {
 					// now send the grouped email
-					$body  = $t_rem_body1;
-					$body .= "<br>";
-					$body .= $list;
-					$body .= "<br>";
+					$body  = $t_rem_body1. " \n\n";
+					$body .= $list. " \n\n";
 					$body .= $t_rem_body2;
 					$result = email_group_reminder( $handler2, $body);
 					$handler2 = $handler ;
 					$list .= formatBugEntry($row1);
-//					$list ="<br>";
-//					$list= string_get_bug_view_url_with_fqdn( $id, $handler2 );
 					# Add reminder as bugnote if store reminders option is ON.
 					if ( ON == $t_rem_store ) {
 						$t_attr = '|'.$handler2.'|';
@@ -139,10 +124,8 @@ if ( ON==$t_rem_include ){
 			// handle last one
 			if ($resnum>0){
 				// now send the grouped email
-				$body  = $t_rem_body1;
-				$body .= "<br>";
-				$body .= $list;
-				$body .= "<br>";
+				$body  = $t_rem_body1. " \n\n";;
+				$body .= $list. " \n\n";;
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $handler2, $body);
 
@@ -161,11 +144,10 @@ if ( ON == $t_rem_manager ) {
 			$query .=" and due_date>1" ;
 		}
 	}
-
-$t_rem_include	= config_get('plugin_Reminder_reminder_include');
-$t_rem_projects	= "(";
-$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
-$t_rem_projects	.= ")";
+	$t_rem_include	= config_get('plugin_Reminder_reminder_include');
+	$t_rem_projects	= "(";
+	$t_rem_projects	.= config_get('plugin_Reminder_reminder_project_id');
+	$t_rem_projects	.= ")";
 if (ON==$t_rem_include){
 	if ($t_rem_projects <>"0") {
 		$query .= " and bugs.project_id IN ". $t_rem_projects;
@@ -223,12 +205,6 @@ function email_group_reminder( $p_user_id, $issues ) {
 	$t_subject = config_get( 'plugin_Reminder_reminder_group_subject' );
 	$t_message = $issues ;
 	if( !is_blank( $t_email ) ) {
-		echo $t_email;
-		echo '**';
-		echo $t_subject;
-		echo '<br>';
-		echo $t_message;
-		echo '<br>';
 		email_store( $t_email, $t_subject, $t_message );
 		if( OFF == config_get( 'email_send_using_cronjob' ) ) {
 			email_send_all();
