@@ -63,6 +63,7 @@ function reminder_print_status_option_list( $p_name ) {
 <div class="form-container" > 
 <br/>
 <form action="<?php echo plugin_page( 'config_edit' ) ?>" method="post">
+<?php echo form_security_field( 'plugin_format_config_edit' ) ?>
 <div class="widget-box widget-color-blue2">
 <div class="widget-header widget-header-small">
 	<h4 class="widget-title lighter">

@@ -1,4 +1,5 @@
 <?php
+form_security_validate( 'plugin_format_config_edit' );
 auth_reauthenticate();
 access_ensure_global_level( config_get( 'manage_plugin_threshold' ) );
 

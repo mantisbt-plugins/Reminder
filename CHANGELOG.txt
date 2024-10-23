@@ -57,3 +57,4 @@ xxx		2013-03-07	samwilson	Moved to Github for easier collaboration.
 2.02							Bugfixes
 2.03							Bugfixes
 2.22	2024-6-21	cas			Bugfixes (mainly in relation to newer php version)
+2.23	2024-10-23	cas			Fixed loss of data within config when reauthentication is required
