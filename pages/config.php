@@ -68,7 +68,7 @@ function reminder_print_status_option_list( $p_name ) {
 <div class="widget-header widget-header-small">
 	<h4 class="widget-title lighter">
 		<i class="ace-icon fa fa-text-width"></i>
-		<?php echo lang_get( 'reminder_plugin_title' ) . ': ' . lang_get( 'plugin_format_config' )?>
+		<?php echo lang_get( 'reminder_plugin_title' ) . ': ' . lang_get( 'reminder_config' )?>
 	</h4>
 </div>
 <div class="widget-body">
