@@ -44,9 +44,9 @@ No Mantis scripts or tables are being altered.
 
 
 ## Configuration options
-...
+
 // Provide more detail with grouped emails
-reminder_details	= ON;	#applicable for reminder-emails
+reminder_details	= ON;	#applicable for bug_reminder_email
 
 // What is the body of the E-mail
 reminder_mail_subject	= "Following issue will be Due shortly";
@@ -111,7 +111,7 @@ reminder_bug_status = FEEDBACK
 // In principle I would advise to use an account with enough rights,
 // so I suggest something like the admin account (mantis account).
 reminder_login = 'admin'
-```
+
 
 ## Automatically generating mail
 
