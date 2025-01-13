@@ -1,6 +1,6 @@
 # Reminder Plugin
 
-Copyright (c) 2009 - 2024 Cas Nuy - cas@nuy.info - http://www.nuy.info
+Copyright (c) 2009 - 2025 Cas Nuy - cas@nuy.info - http://www.nuy.info
 
 Released under the [GPL 2.0](http://opensource.org/licenses/GPL-2.0)
 
@@ -44,8 +44,10 @@ No Mantis scripts or tables are being altered.
 
 
 ## Configuration options
+...
+// Provide more detail with grouped emails
+reminder_details	= ON;	#applicable for reminder-emails
 
-```
 // What is the body of the E-mail
 reminder_mail_subject	= "Following issue will be Due shortly";
 
@@ -179,4 +181,5 @@ Source code is also available on [Github](https://github.com/mantisbt-plugins/Re
 
 ## Credits
 
-- Mark Ziegler, German translation (May 2010)
+- Mark Ziegler		German translation			May-2010<br>
+- Lukas Francalek   Czech translation      		June-2023<br>

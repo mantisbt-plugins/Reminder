@@ -35,6 +35,7 @@ if (ON != $t_rem_hours){
 } else{
 	$multiply=1;
 }
+$t_details = plugin_config_get( 'reminder_details' );
 //
 // access level for manager= 70
 // this needs to be made flexible
@@ -79,7 +80,11 @@ if ( ON == $t_rem_handler ) {
 			while ($row1 = db_fetch_array($results)) {
 				$id 		= $row1['id'];
 				$handler	= $row1['handler_id'];
-				$list = string_get_bug_view_url_with_fqdn( $id, $handler2 );
+				if ( ON == $t_details ) {
+					$list = formatBugEntry($row1);
+				} else {
+					$list = string_get_bug_view_url_with_fqdn( $id, $handler2 );
+				}
 				$body  = $t_rem_body1. " \n\n";
 				$body .= $list. " \n\n";
 				$body .= $t_rem_body2;
@@ -177,7 +182,11 @@ if ( ON == $t_rem_manager ) {
 			}
 			if ($manager==$man2){
 				$list .=" \n\n";
-				$list .= string_get_bug_view_url_with_fqdn( $id, $man2 );
+				if ( ON == $t_details ) {
+					$list = formatBugEntry($row1);
+				} else {
+					$list = string_get_bug_view_url_with_fqdn( $id, $man2 );
+				}
 			} else {
 				// now send the grouped email
 				$body  = $t_rem_body1. " \n\n";
@@ -185,7 +194,11 @@ if ( ON == $t_rem_manager ) {
 				$body .= $t_rem_body2;
 				$result = email_group_reminder( $man2, $body);
 				$man2 = $manager ;
-				$list= string_get_bug_view_url_with_fqdn( $id, $man2 );
+				if ( ON == $t_details ) {
+					$list = formatBugEntry($row1);
+				} else {
+					$list = string_get_bug_view_url_with_fqdn( $id, $man2 );
+				}
 				$list .= " \n\n";
 			}
 		}
