@@ -45,72 +45,70 @@ No Mantis scripts or tables are being altered.
 
 ## Configuration options
 
-// Provide more detail with grouped emails
-reminder_details	= ON;	#applicable for bug_reminder_email
+// Provide more detail with grouped emails<br>
+reminder_details	= ON;	#applicable for bug_reminder_email<br>
 
-// What is the body of the E-mail
-reminder_mail_subject	= "Following issue will be Due shortly";
+// What is the body of the E-mail<br>
+reminder_mail_subject	= "Following issue will be Due shortly";<br>
 
-// What is the subject of the grouped E-mail
-reminder_group_subject	= "You have issues approaching their Due Date";
+// What is the subject of the grouped E-mail<br>
+reminder_group_subject	= "You have issues approaching their Due Date";<br>
 
-// What is the start of the body of the grouped E-mail
-reminder_groupbody1	= "Please review the following issues";
+// What is the start of the body of the grouped E-mail<br>
+reminder_groupbody1	= "Please review the following issues";<br>
 
-// What is the end of the body of the grouped E-mail
-reminder_groupbody2	= "Please do not reply to this message";
+// What is the end of the body of the grouped E-mail<br>
+reminder_groupbody2	= "Please do not reply to this message";<br>
 
-// perform for which project
-reminder_project_id = 0; means ALL
+// perform for which project<br>
+reminder_project_id = 0; means ALL<br>
 
-// how many days before Due date should we take into account
-reminder_days_treshold  = 2;
+// how many days before Due date should we take into account<br>
+reminder_days_treshold  = 2;<br>
 
-// Should we use hours instead of days
-reminder_hours		  	= OFF;
+// Should we use hours instead of days<br>
+reminder_hours		  	= OFF;<br>
 
-// Should we store this reminder as bugnote
-reminder_store_as_note = OFF;
-// only possible for handler
+// Should we store this reminder as bugnote<br>
+reminder_store_as_note = OFF;<br>
+// only possible for handler<br>
 
-// For which status to send reminders
-reminder_bug_status = ASSIGNED
+// For which status to send reminders<br>
+reminder_bug_status = ASSIGNED<br>
 
-// Ignore reminders for issues with no Due date set
-reminder_ignore_unset = ON
+// Ignore reminders for issues with no Due date set<br>
+reminder_ignore_unset = ON<br>
 
-// Ignore reminders for issues with Due dates in the past
-reminder_ign_past = ON
+// Ignore reminders for issues with Due dates in the past<br>
+reminder_ign_past = ON<br>
+// only valid for the mail function, downloads will always have duedates that have gone by<br>
 
-// only valid for the mail function, downloads will always have duedates that have gone by
+// Create overview per handler<br>
+reminder_handler = ON<br>
 
-// Create overview per handler
-reminder_handler = ON
+// Group issues by Handler<br>
+reminder_group_issues = ON<br>
 
-// Group issues by Handler
-reminder_group_issues = ON
+// Group issues by project/handler<br>
+reminder_group_project = OFF<br>
 
-// Group issues by project/handler
-reminder_group_project = OFF
+// Create overview per manager/project<br>
+reminder_manager_overview = ON<br>
 
-// Create overview per manager/project
-reminder_manager_overview = ON
-//
-// access level for manager= 70
-// this needs to be made flexible
-// we will only produce overview for those projects that have a separate manager
-//
+// access level for manager= 70<br>
+// this needs to be made flexible<br>
+// we will only produce overview for those projects that have a separate manager<br>
 
-// Select project to receive Feedback mail
-reminder_feedback_project = 0; means ALL
+// Select project to receive Feedback mail<br>
+reminder_feedback_project = 0; means ALL<br>
 
-// For which status to send feedbackreminders
-reminder_bug_status = FEEDBACK
+// For which status to send feedbackreminders<br>
+reminder_bug_status = FEEDBACK<br>
 
-// On which account should we run the background jobs
-// In principle I would advise to use an account with enough rights,
-// so I suggest something like the admin account (mantis account).
-reminder_login = 'admin'
+// On which account should we run the background jobs<br>
+// In principle I would advise to use an account with enough rights,<br>
+// so I suggest something like the admin account (mantis account).<br>
+reminder_login = 'admin'<br>
 
 
 ## Automatically generating mail
