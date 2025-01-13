@@ -44,7 +44,7 @@ No Mantis scripts or tables are being altered.
 
 
 ## Configuration options
-
+```
 // Provide more detail with grouped emails<br>
 reminder_details	= ON;	#applicable for bug_reminder_email<br>
 
@@ -109,7 +109,7 @@ reminder_bug_status = FEEDBACK<br>
 // In principle I would advise to use an account with enough rights,<br>
 // so I suggest something like the admin account (mantis account).<br>
 reminder_login = 'admin'<br>
-
+```
 
 ## Automatically generating mail
 
